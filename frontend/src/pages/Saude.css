@@ -1,0 +1,202 @@
+.global-saude{
+  border: 4px solid blue;
+  height: 330vh;
+   background-color: #EAEAEA;
+
+}
+
+.nav-bar-saude{
+ /* border: 4px solid rgb(255, 0, 0);    */
+ height: 2%;
+ background-color: #3B444F;
+}
+
+.conteine-desing-saude{
+border: 4px solid yellow;
+height: 20%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.conteine-propagandas-saude{
+border: 4px solid rgb(72, 48, 4);
+height: 20%;
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color: #2D405A;
+
+}
+
+.conteine-icones-telao{
+border: 4px solid rgb(210, 134, 10);
+height: 30%;
+width: 100%;
+display: flex;
+}
+
+.mapa-saude{
+border: 4px solid rgb(19, 234, 37);
+height: 23%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.roda-pe-saude{
+border: 4px solid rgb(19, 195, 234);
+height: 5%;
+background-color: #3B444F;
+}
+
+.azul-saude{
+border: 4px solid rgb(130, 19, 234);
+height: 70%;
+width: 70%;
+}
+
+.marrom-propaganda-saude{
+border: 4px solid rgb(234, 19, 170);
+height: 70%;
+width: 70%;
+}
+
+.menu-saude{
+/* border: 4px solid rgb(118, 4, 26); */
+height: 100%;
+width: 5%;
+position: relative;
+left: 95%;
+}
+
+.conteine-do-canto-esquerdo-saude{
+border: 4px solid rgb(123, 234, 19);
+height: 100%;
+width: 30%;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+gap: 10px;
+}
+
+.conteine-do-canto-direto-saude{
+border: 4px solid rgb(36, 21, 32);
+height: 100%;
+width: 70%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+
+
+
+/* .sus-saude{
+ height: 20%;
+ width: 30%;
+ background-color: #607E98;
+}
+
+.sus2-saude{
+height: 100%;
+ width: 100%;
+background-color: #607E98;
+border: 1px solid #607E98;
+} */
+
+.design-png{
+height: 100%;
+width: 100%;
+}
+
+.google-maps{
+border: 4px solid green;
+height: 80%;
+width: 80%;
+}
+
+.mapa{
+height: 100%;
+width: 100%;
+}
+
+
+
+
+.info-arruma{border: 1px solid black;
+    height: 90%;
+    width:  90%;
+
+    }
+    .p-trans{color: rgb(84, 143, 194);
+    font-size: 40px;
+    
+    }
+
+    
+    .info-button:hover {
+      background-color: var(--cor-1-escuro);
+    }
+    
+    .info-button.ativo {
+      background-color: var(--cor-1-claro);
+      color: var(--cor-fundo);
+      transform: scale(1.05);
+    }
+    
+    .info-box {
+      background-color: #e9e9e9;
+      border-radius: 10px;
+   height: 60%;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+      border-left: 10px solid var(--cor-2-escuro);
+    }
+    
+    .info-box h3 {
+      color: var(--cor-2-claro);
+     
+    }
+    
+    .info-box ul {
+      padding-left: 20px;
+    }
+    
+    .info-box li {
+      margin-bottom: 8px;
+    }
+    
+.botoes2-saude {
+      border: 4px solid rgb(3, 2, 0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 50px;
+    width: 80%;
+    height: 100%;
+      justify-content: center;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
