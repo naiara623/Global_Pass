@@ -1,0 +1,718 @@
+
+.inicio-conteiner-inicio{
+border: 4px solid rgb(123, 34, 206);
+height: 340vh;
+width: 100%;
+background-color: #EAEAEA;
+}
+
+
+/* ""navbar" */
+
+.inicio-navebar{
+   /* border: 3px solid #ff0000; */
+   height: 3%;
+   background-color: #EAEAEA;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.inicio-shine {
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centraliza o texto */
+    
+    /* border: 4px solid rgb(123, 34, 206);
+    height: 100%;
+    width: 40%;
+    
+    font-size: 2em;
+    font-weight: 900;
+    color: #f9f9f975;
+    
+    background: linear-gradient(
+        -50deg,
+        transparent 0%,
+        transparent 40%,
+        #ffffff 55%,
+        transparent 60%,
+        transparent 100%
+    );
+    background-size: 100% 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    
+    animation: shine 8s infinite linear;
+}
+
+/* Animação do brilho */
+/* @keyframes shine {
+    0% {
+        background-position: -200px;
+    }
+    100% {
+        background-position: 200px;
+    }
+}
+
+
+.inicio-divisão{ 
+  /* border: 3px solid #9f6262; */
+  height: 100%;
+  width:50%;
+  }
+
+  .inicio-div-modal{
+    /* border: 3px solid #148c04; */
+    height: 100%;
+  width:4%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+
+ /* .inicio-modal{ 
+   border: 3px solid #ffffff22; */
+    /* height:80%;
+    width: 80%;
+  } */ 
+
+
+/* frase inspiradora */
+
+.inicio-conteiner-imagens{
+    /* border: 3px solid #56ff01; */
+    height: 25%;
+    background-image: url('../public/floripa.png');
+    background-size: cover;
+    background-attachment: fixed;
+    color: #2d5883; /* Cor do texto para contraste */
+}
+ .inicio-imagens{
+    /* border: 3px solid #012bff; */
+    height: 55%;
+    width: 100%;
+  
+ }
+
+ .inicio-comentario{
+    /* border: 3px solid #256306; */
+    height: 35%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ }
+
+.quadrado-frase{
+  background-color: #1a293da4;
+  border: 1px solid var(--cor-1-escuro);
+  box-shadow: 5px 1px 20px -1px var(--cor-1-escuro);
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55%;
+    width: 80%;
+    border-radius: 20px;
+}
+
+.inicio-frases{ 
+    /* border: 1px solid #fffb00; */
+    text-shadow: 4px 3px 4px  #000000;
+    height: 90%;
+    width: 80%;
+    color: rgb(255, 255, 255);
+    font-size:35px;
+    font-family: sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+     
+      border-radius: 20px;
+      display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+@keyframes autoRun3d {
+    from {
+      transform: perspective(800px) rotateY(-360deg);
+    }
+    to {
+      transform: perspective(800px) rotateY(0deg);
+    }
+  }
+  
+  @keyframes animateBrightness {
+    10% {
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(0.1);
+    }
+    90% {
+      filter: brightness(1);
+    }
+  }
+  
+/* CarrosselHorizontal.css */
+.carrossel-horizontal-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: end;
+}
+
+.carrossel-track1 {
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 50%;
+  align-items: center;
+  left: -35%;
+}
+
+.carrossel-item1 {
+  position: absolute;
+  width: 40%;
+  height: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.9s cubic-bezier(0.25, 0.1, 0.25, 1); /* Corrigido e mais suave */
+  left: 50%;
+  transform-origin: center;
+}
+
+/* Atrasos em cascata para um efeito de onda suave */
+.carrossel-item1:nth-child(1) { transition-delay: 0s; }
+.carrossel-item1:nth-child(2) { transition-delay: 0.05s; }
+.carrossel-item1:nth-child(3) { transition-delay: 0.1s; }
+.carrossel-item1:nth-child(4) { transition-delay: 0.15s; }
+.carrossel-item1:nth-child(5) { transition-delay: 0.2s; }
+.carrossel-item1:nth-child(6) { transition-delay: 0.25s; }
+.carrossel-item1:nth-child(7) { transition-delay: 0.3s; }
+.carrossel-item1:nth-child(8) { transition-delay: 0.35s; }
+.carrossel-item1:nth-child(9) { transition-delay: 0.4s; }
+
+.math-value1 {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Efeitos de hover (agora mais suaves) */
+.carrossel-item1:hover {
+  transform: scale(1.1) !important; /* Reduzi para 1.1 para ficar mais natural */
+  z-index: 10 !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease-out; /* Transição mais rápida no hover */
+}
+
+/* Adaptação para mobile */
+@media (max-width: 480px) {
+  .carrossel-item1 {
+    width: 80%;
+    height: 60px;
+    font-size: 16px;
+  }
+  
+  .carrossel-track1 {
+    height: 100%;
+  
+  }
+}
+
+.imagens-fl {
+  height: 100%; 
+  width: 100%;
+  object-fit: cover; /* Garante que as imagens preencham o espaço sem distorcer */
+}
+
+  /* linha bonita */
+  
+  .inicio-linha-bonita{
+    /* border: 5px solid rgb(231, 121, 231); */
+    height: 3%;
+width: 100%;
+  }
+
+ .inicio-linha1{
+/* border: 1px solid purple; */
+background-color:#545D69 ;
+height: 30%;
+width: 100%;
+ }
+ .inicio-linha2{
+/* border: 1px solid purple; */
+background-color:#3B444F ;
+height: 70%;
+width: 100%;
+ }
+
+
+
+
+/* os botões */
+
+.inicio-os-iconis{
+    /* border: 5px solid #ff00a6; */
+  
+    height: 20%;
+    background-color: var(--cor-fundo);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inicio-quadrado-icons{
+  box-shadow: 1px 1px 30px -5px #000000;
+    background-color: var(--cor-1-escuro);
+    /* border: 4px solid #db9ac4; */
+    height: 45%;
+    width: 60%;
+
+}
+
+.icon-inicio{
+  height: 50%;
+  width: 35%;
+}
+
+.inicio-ppp{
+    font-size: 30px;
+}
+.inicio-palavra-tran{
+
+width: 40%;
+justify-content: center;
+align-items: center;
+display: flex;
+height: 100%;
+}
+.inicio-palavra-estu{
+
+width: 40%;
+justify-content: center;
+align-items: center;
+display: flex;
+height: 100%;
+}
+.inicio-palavra-saud{
+
+width: 40%;
+justify-content: center;
+align-items: center;
+display: flex;
+height: 100%;
+}
+
+
+.inicio-frases1{ display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 3px solid #fffb00; */
+    height: 20%;
+    width:100%;
+    color: white;
+    font-size: 10%;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight:10;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+
+}
+.inicio-button{
+    /* border: 4px solid #be0c80; */
+    height: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+   gap: 3%;
+    align-items: center;
+}
+
+
+
+
+
+.inicio-estudo-icon{
+    background-color: var(--cor-2-claro);
+    border: 4px solid var(--cor-2-claro);
+    height: 80%;
+    width: 30%;
+    border-radius: 50px;
+}
+
+.inicio-saude-icon{
+    background-color: var(--cor-2-claro);
+    border: 4px solid var(--cor-2-claro);
+    height: 80%;
+    width: 28%;
+    border-radius: 50px 0 0 50px;
+}
+
+.inicio-transporte-icon{
+    background-color: var(--cor-2-claro);
+    border: 4px solid var(--cor-2-claro);
+    height: 80%;
+    width: 28%;
+    border-radius: 0 50px 50px 0;
+}
+
+
+
+/* vidiozinho sobre florianopolis */
+
+.inicio-conteiner-video{
+    /* border: 5px solid #ff00a6; */
+    height: 20%;
+    display: flex;
+}
+
+.inicio-div-texto{
+    background-color: #EAEAEA;
+    /* border: 4px solid #db9ac4; */
+    height: 100%;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.inicio-texto-video{
+ 
+    /* border: 4px solid #db9ac4; */
+    
+    height: 90%;
+    width: 70%;
+    border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.inicio-frases2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid #fffb00; */
+    height: 90%;
+    width: 100%;
+    color: var(--cor-2-claro);
+    font-size: 25px;
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+}
+
+.inicio-titulo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid #fffb00; */
+  height: 10%;
+  width: 100%;
+  color:var(--cor-1-escuro);
+  font-size: 30px;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 1px;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 160; 
+}
+
+.inicio-div-video{
+     background-color: #EAEAEA;
+    /* border: 4px solid #5e003d; */
+    height: 100%;
+    width: 30%;
+    left: 50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.inicio-video{
+  height: 60%;
+  
+}
+
+/* comentarios bacanudos */
+
+.inicio-conteiner-comentarios{
+    /* border: 5px solid #ff00a6; */
+    height: 21%;
+    background-color: var(--cor-1-escuro);
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+
+
+.inicio-comentarios{
+    /* border: 5px solid #ff00a6; */
+    height: 60%;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+gap: 5%;
+}
+
+.inicio-comentar{ 
+  /* border: 5px solid #ff9100; */
+    border-radius: 140px 0 0 140px ;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #001E5F;
+    width:  48%;}
+
+    .inicio-conteiner-arrumar{
+        /* border: 5px solid #664c29; */
+        height: 100%;
+        width:  100%; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+/* Container principal do bloco de comentários - estilo caixa */
+.inicio-bloco {
+  background-color: #fff;
+  padding: 26px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid #f0f0f0;
+  margin: 26px 0;
+  width: 70%;
+  height: 55%;
+}
+
+/* Container do input - estilo minimalista */
+.inicio-arrumar1 {
+  margin-bottom: 10px;
+}
+
+/* Input de comentário - estilo elegante */
+.inicio-input-comentar {
+  width: 100%;
+  padding: 10px 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background-color: #fafafa;
+  transition: all 0.2s ease;
+}
+
+.inicio-input-comentar:focus {
+  border-color: #3897f0;
+  background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(56, 151, 240, 0.1);
+  outline: none;
+}
+
+/* Container dos botões - alinhamento perfeito */
+.inicio-arrumar2 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Botões de ação - estilo discreto */
+.inicio-button-emoje, 
+.inicio-button-imagem {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  padding: 0;
+}
+
+.inicio-button-emoje:hover, 
+.inicio-button-imagem:hover {
+  opacity: 1;
+}
+
+/* Ícones SVG integrados */
+.inicio-button-emoje {
+  background: url('data:image/svg+xml;utf8,<svg fill="%23666666" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/><circle cx="8.5" cy="10.5" r="1.5"/><circle cx="15.5" cy="10.5" r="1.5"/><path d="M12 18c4 0 5-4 5-4H7s1 4 5 4z"/></svg>') center no-repeat;
+}
+
+.inicio-button-imagem {
+  background: url('data:image/svg+xml;utf8,<svg fill="%23666666" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2zM5 19V5h14l.002 14H5z"/><path d="m10 14-1-1-3 4h12l-5-7z"/><circle cx="8.5" cy="9.5" r="1.5"/></svg>') center no-repeat;
+}
+
+/* Botão de ação principal - destaque sutil */
+.inicio-button-comentar {
+  padding: 8px 16px;
+  background-color: #3897f0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 0.9rem;
+}
+
+.inicio-button-comentar:hover {
+  background-color: #2878d0;
+}
+
+.inicio-button-comentar:disabled {
+  background-color: #b2dffc;
+  cursor: not-allowed;
+}
+
+/* Efeitos de foco para acessibilidade */
+.inicio-button-emoje:focus,
+.inicio-button-imagem:focus,
+.inicio-button-comentar:focus {
+  outline: 2px solid rgba(56, 151, 240, 0.5);
+  outline-offset: 1px;
+}
+
+.inicio-comentado{
+   /* border: 5px solid #91ff00; */
+    border-radius: 0 140px 0 0 ;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #001E5F;
+    width: 48%;}    
+
+    .inicio-ajudar{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .inicio-div-comentado {
+        /* border: 4px solid rgb(95, 4, 19); */
+        width: 80%;
+        height:90%;
+      }
+
+      .inicio-cards-comentarios{
+        /* border: 4px solid rgb(95, 4, 19); */
+        width: 100%;
+        height:100%;
+      }
+      
+    
+/* nosso roda-pé */
+
+.inicio-roda-pe{
+    /* border: 5px solid #00f7ff; */
+    height: 6.45%;
+    
+    background-color: var(--cor-2-escuro);
+}
+
+.inicio-rodape-cima1{
+  /* border: 5px solid #47d049; */
+  height: 50%;
+  width: 100%;
+  gap: 1%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inicio-icons-apps{
+  /* border: 3px solid blanchedalmond; */
+  height: 100%;
+  width: 3.5%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inicio-rodape-baixo1{
+  /* border: 5px solid #bbff00; */
+  height: 50%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inicio-fale-conosco{
+  /* border: 2px solid blue; */
+height: 100%;
+width: 5%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.inicio-icone-função{
+  height:50%;
+  width: 50%;
+}
+
+.inicio-telefone{
+  /* border: 2px solid blue; */
+height: 100%;
+width: 15%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.inicio-email{
+  /* border: 2px solid blue; */
+height: 100%;
+width: 15%;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+.inicio-palavras-pequenas{
+  font-size: 20px;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+
+
+
+
+
+
+
+
