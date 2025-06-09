@@ -19,12 +19,16 @@
   width: 15%;
   display: flex;
   align-items: center;
+   font-family: "Inter Tight", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style:normal;
 }
 
 .h2-da-logo-globalpost {
-  font-size: 24px;
+  font-size: 38px;
   font-weight: 700;
-  color: #51a37f;
+  color: #ecf4f1;
   margin: 0;
 }
 
@@ -55,47 +59,48 @@
 }
 
 .div-do-butao-postagem-globalpost {
-  height: 40px;
-  width: 220px;
+  height: 55px;
+  width: 360px;
 }
 
 .butao-postagem-globalpost {
   height: 100%;
   width: 100%;
-  background-color: #51a37f;
+  background-color: #40526b;
   color: white;
   border: none;
   border-radius: 20px;
-  font-weight: 600;
+  font-weight: 800;
+  font-size: 20px;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .butao-postagem-globalpost:hover {
-  background-color: #3d7a5f;
+  background-color: #767f8a;
   transform: translateY(-2px);
 }
 
 .div-butao-MAIS-globalpost {
-  height: 40px;
-  width: 40px;
+  height: 55px;
+  width: 55px;
 }
 
 .butao-MAIS-globalpost {
   height: 100%;
   width: 100%;
-  background-color: #51a37f;
+  background-color: #40526b;
   color: white;
   border: none;
   border-radius: 50%;
-  font-size: 20px;
+  font-size: 40px;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .butao-MAIS-globalpost:hover {
-  background-color: #3d7a5f;
+  background-color: #767f8a;
   transform: scale(1.1);
 }
 
@@ -198,5 +203,9 @@
   text-align: center;
   padding: 50px;
   color: #a1a1a1;
-  font-size: 16px;
+  font-size: 20px;
+   font-family: "Inter Tight", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style:normal;
 }

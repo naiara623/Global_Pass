@@ -57,10 +57,12 @@ const handlePost = () => {
 
         <div className="din-navbar-TLPostagem">
                 <div className='div-arrow-TLPostagem' > 
- <button onClick={() => navigate('/postagem')}>
-            <img src="Arrow.png" alt="" className='arrow-TLpostagem'/>
+ <button className='buton-arrow-TLpostagem' onClick={() => navigate('/postagem')}>
+            <img src="Voltar.png" alt="" className='arrow-TLpostagem'/>
           </button>
                 </div>
+                
+                <img src="" alt="" />
         </div>
 
         <div className='ingloba-post-text-butão-TLpostagem'>

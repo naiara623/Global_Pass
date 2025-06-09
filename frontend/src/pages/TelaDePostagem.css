@@ -14,14 +14,19 @@
 }
 
 .div-arrow-TLPostagem {
-  width: 40px;
-  height: 40px;
+  width: 70px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   border-radius: 50%;
   transition: background-color 0.3s;
+}
+
+.buton-arrow-TLpostagem{
+  background-color: transparent;
+  border: 2px solid transparent;
 }
 
 .div-arrow-TLPostagem:hover {
@@ -100,7 +105,7 @@
   color: white;
   width: 100%;
   border: none;
-  border-bottom: 2px solid #51a37f;
+  border-bottom: 2px solid #f3f4f3;
   padding: 10px 0;
   font-size: 16px;
   outline: none;
@@ -117,7 +122,7 @@
 }
 
 .Butao-postar-TLpostagem {
-  background-color: #51a37f;
+  background-color: #40526b;
   color: white;
   border: none;
   border-radius: 20px;
@@ -129,7 +134,7 @@
 }
 
 .Butao-postar-TLpostagem:hover {
-  background-color: #3d7a5f;
+  background-color: #767f8a;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
