@@ -9,11 +9,12 @@
 }
 
 :root{
---cor-fundo:#F9FAFB;
---cor-1-claro:#545D69;
+--cor-branco:#EAEAEA;
+--cor-fundo:#2D405A;
+--cor-1-claro:#6a6c6e;
 --cor-2-claro:#607E98;
---cor-1-escuro:#2D405A;
---cor-2-escuro:#3B444F;
+--cor-1-escuro:#3A4F6D;
+--cor-2-escuro:#30373f;
 }
 
 /* Estilizando a barra de rolagem inteira */

@@ -200,19 +200,16 @@ Saúde
       
       </div>
       
-      <div className='inicio-linha-bonita'>
       
-      <div className='inicio-linha1'></div>
-      <div className='inicio-linha2'></div>
-       
-         </div>
       
       <div className='inicio-conteiner-video'>
       
         <div className='inicio-div-texto'>
 
 <div className='inicio-texto-video'>
-<h4 className='inicio-titulo'>Florianópolis, capital de Santa Catarina</h4>
+<div className='Titulo-div'>
+  <h4 className='inicio-titulo'>Florianópolis, capital de Santa Catarina</h4>
+  </div>
         <p className='inicio-frases2'>È uma ilha no sul do Brasil famosa
 por suas prais, natureza e qualidade
 de vida.
@@ -233,7 +230,7 @@ frutos do mar</p>
         </div>
         
         <div className='inicio-div-video'>
-     <video width="280px" height="500px" id="myVideo" controls>
+     <video width="340px" height="600px" id="myVideo" controls>
   <source src="floripa-video.mp4" type="video/mp4"/>
 </video>
 
@@ -245,7 +242,12 @@ frutos do mar</p>
       
       </div>
       
-  
+      <div className='inicio-linha-bonita'>
+      
+      <div className='inicio-linha1'></div>
+      <div className='inicio-linha2'></div>
+       
+         </div>
       
       <div className='inicio-conteiner-comentarios'>
       
