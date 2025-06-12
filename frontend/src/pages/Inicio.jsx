@@ -159,43 +159,42 @@ function Inicio() {
         <div className='inicio-quadrado-icons'>
 
 <div className='inicio-button'>
+  <div className='okokokok'>
+
+
 
           <button className='inicio-transporte-icon' onClick={telaTrans}>
-          <img className='icon-inicio' src="trannsporte.png" alt="Tela de transporte" />
+          <img className='icon-inicio' src="okOK.png" alt="Tela de transporte" />
+          <div className='inicio-frases1'>
+           <p className='inicio-ppp'>
+Transporte
+</p>
+          </div>
           </button>
 
           
           <button className='inicio-estudo-icon'  onClick={telaEduca}>
-          <img className='icon-inicio' src="school.png" alt="Tela de educação" />
+          <img className='icon-inicio' src="ok.png" alt="Tela de educação" />
+          <div className='inicio-frases1'>
+
+          <p className='inicio-ppp'>
+         Educação
+</p>
+          </div>
           </button>
           
           <button className='inicio-saude-icon'  onClick={telaSal}>
-          <img className='icon-inicio' src="saude.png" alt="Tela de saude" />
+          <img className='icon-inicio' src="Ook.png" alt="Tela de saude" />
+          <div className='inicio-frases1'>
+
+          <p className='inicio-ppp'>
+          Saúde
+</p>
+          </div>
           </button>
 </div>
-
-<div className='inicio-frases1'>
-
-  <div className='inicio-palavra-tran'>
-  <p className='inicio-ppp'>
-Transporte
-</p>
-  </div>
-
-  <div className='inicio-palavra-estu'>
-  <p className='inicio-ppp'>
-Processo de ensino 
-</p>
-  </div>
-
-  <div className='inicio-palavra-saud'>
-  <p className='inicio-ppp'>
-Saúde
-</p>
-  </div>
-
 </div>
-        
+
         </div>
       
       </div>
