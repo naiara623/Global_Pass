@@ -1,4 +1,5 @@
  .amarela-BoasVindas{
+
         /* border: 4px solid rgb(208, 255, 0);  */
         height: 215vh;
         background-color: #EAEAEA;
@@ -18,6 +19,7 @@
 } 
 
 .botaoEntrar-boasvindas{
+  
     border-radius: 5px;
     background-color: #E4E7EB;
     height: 60%;
@@ -33,9 +35,10 @@
 } 
 
  .Roxa-BoasVindas{
-    /* border: 4px solid rgb(107, 3, 107);  */
-    height: 34%;
+    /* border: 4px solid rgb(236, 12, 236);  */
+    height: 38%;
     display: flex;
+    
     background-color: #EAEAEA;
 } 
 
@@ -61,10 +64,10 @@
  .circulo-BoasVINDAS{
      /* border: 4px solid #02ff0e;  */
     height: 35%;
-    width: 25%;
+    width: 28%;
     border-radius: 170px;
-    top: 270px;
-    left: 240px;
+    top: 299px;
+    left: 220px;
     position: absolute;
     background-color: #607E98;
 } 
@@ -81,17 +84,19 @@
 } 
 
  .Branca-Boasvindas{
-    border: 4px solid #EAEAEA; 
+    /* border: 4px solid #b22f2f;  */
     height: 340px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #EAEAEA;
+   padding-left: 13%;
 } 
 
 
 .Logo-Boasvindas{
-  font-size: 130px;
+  /* border: 4px solid rgb(35, 156, 167);  */
+  font-size: 160px;
   color: #2D405A;
   font-family: bodo;
   
@@ -102,13 +107,16 @@
     height: 174px;
     display: flex;
     justify-content: center;
+    align-items: center;
     background-color: #EAEAEA;
+    padding-left: 11%;
     
 }
 
 .button-cadastro-BoasVindas{
-    width: 25%;
-    height: 25%;
+    width: 40%;
+    height: 40%;
+    font-size: 20px;
     border-radius: 50px;
     background-color: #2D405A;
     color: aliceblue;
@@ -128,7 +136,7 @@
 } 
 
 .Rosa-BoasVindas{
-    border: 4px solid rgb(235, 15, 191);
+    /* border: 4px solid rgb(235, 15, 191); */
     width: 100%;
     height: 30%;
     /* display: flex;
@@ -187,23 +195,23 @@
   }
 
   .icone-estudante{
-    width: 10%;
+    width: 15%;
   }
 
   .icone-hospital{
-    width: 10%;
+    width: 15%;
   }
 
   .icone-trasporte{
-    width: 10%;
+    width: 15%;
   }
 
   .icone-entreterimento{
-    width: 10%;
+    width: 15%;
   }
 
   .icone-viajante{
-    width: 10%; 
+    width: 15%; 
   }
 
   .texto1-boasvindas{
@@ -214,7 +222,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 30px;
+    font-size: 35px;
     font-family: "Inter Tight", sans-serif;
     font-optical-sizing: auto;
     font-weight: weight;
@@ -227,7 +235,7 @@
     color: #607E98;
     display: flex;
     justify-content: center;
-    font-size: 30px;
+    font-size: 35px;
     font-family: "Inter Tight", sans-serif;
     font-optical-sizing: auto;
     font-weight: weight;
@@ -252,9 +260,15 @@
 .links{
     /* border: 4px solid rgb(214, 134, 14); */
     height: 50%;
+    padding-left: 2%;
     display: flex;
     justify-content: center;
-    gap: 1%;
+    gap: 2%;
+    font-size: 15px;
+    font-family: "Inter Tight", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style:normal
 }
 
 .instagram{

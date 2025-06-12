@@ -120,7 +120,7 @@ function BoasVindas() {
 
                     <div className="links">
                             
-                            
+                            <h2> (00) 0000-0000</h2> <h2>globalpass.nkl@gmail.com</h2>
                     </div>
 
 
