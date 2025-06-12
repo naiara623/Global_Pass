@@ -32,17 +32,17 @@ function Modal() {
 
   return (
     <div>
-      <button className='modal-button' onClick={toggleModal}> <img className='inicio-modal' src="menu-modal.png" alt="" /></button>
+      <button className='modal-button1' onClick={toggleModal}> <img className='inicio-modal' src="menu-modal.png" alt="" /></button>
       
       {isOpen && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <div className='modal-arruma'>
+        <div className="modal-overlay1">
+          <div className="modal1">
+            <div className='modal-arruma1'>
             <h2>GLOBAL PASS</h2>
             
-            <button className='button1' onClick={toggleModal}>X</button>
+            <button className='buttonX' onClick={toggleModal}>X</button>
             </div>
-            <div className='modal-arrumar'>
+            <div className='modal-arrumar1'>
 
            <div className='inicio'><button className='butonmodal1' onClick={irparainicio}><img className='img-modal' src="home-page.png" alt="Tela inicial" /> <h3 className='lulamolusco1-modal'>Tela Inicial</h3></button></div>
 

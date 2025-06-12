@@ -1,5 +1,5 @@
 /* Estilo do overlay (fundo escuro) */
-.modal-overlay1 {
+.modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -13,8 +13,8 @@
   }
   
   /* Estilo do modal em si */
-  .modal1 {
-    background-color:var(--cor-2-escuro);
+  .modal {
+    background-color:#1e263f;
     display: inline;
     justify-content: center;
     align-items: start;
@@ -22,6 +22,7 @@
     max-width: 20%;
     width: 80%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    position: relative;
   }
   
   /* Estilo do botão de fechar */
@@ -34,18 +35,18 @@
     cursor: pointer;
   }
 
-  .buttonX{
+  .button2{
     background-color: var(--cor-1-escuro);
     border: none;
-    width: 10%;
-    height: 40%;
+    width: 100%;
+    height: 20%;
   }
   
-  .modal .button:hover {
+  .modal .button1:hover {
     background-color:var(--cor-2-claro);
   }
 
-  .modal-button1{
+  .modal-button{
     background-color: var(--cor-2-escuro);
     border: #0057b300;
     width: 60%;
@@ -55,7 +56,7 @@
 
   h2{color: var(--cor-fundo);}
 
-  .modal-arrumar1{
+  .modal-arrumar{
     /* border: 4px solid blue; */
 height: 93%;
 width: 100%;
@@ -66,7 +67,7 @@ align-items: center;
 
   }
 
-  .modal-arruma1{
+  .modal-arruma{
     /* border: 4px solid rgb(232, 121, 121); */
     height: 7%;
     width: 100%;
@@ -182,6 +183,8 @@ align-items: center;
     align-items: center; */
   }
 
+  
+
   .butonmodal5{
     border: 2px solid #545d69;
     height: 80%;
@@ -234,4 +237,124 @@ align-items: center;
     position: relative;
     top: -55%;
      right: 7%;
+  }
+
+  .modal-button{
+    background-color: transparent;
+    height: 100%;
+    width: 100%;
+    /* border: 2px solid red; */
+     position: absolute; /* posicionamento absoluto em relação à div branca */
+            top: 0;
+            left: 0;
+  }
+
+  .arrow-modal{
+    /* border: 2px solid red; */
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%; 
+
+  }
+
+  .button1{
+    border: 2px solid white;
+    height:70%;
+    width: 14%;
+    position: relative;
+    right: 35%;
+  }
+
+  .divPequena-modal{
+    /* border: 2px solid red; */
+    width: 100%;
+    height: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3d4145;
+  }
+
+  .titulo1-modal{
+    font-size: 20px;
+  }
+
+  .ModalPerfil{
+    background-color: var(--cor-3-escuro);
+  }
+
+  .InfoUsuarios-modal{
+    /* border: 2px solid white; */
+    height: 25%;
+    width: 100%;
+    position: relative;
+    top:-4%;
+    gap: 0%;
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  .InpuTNomeUsuario-modal{
+    border: none;
+    height: 25%;
+    width: 50%;
+    background-color: transparent;
+    position: relative;
+    top: 10%;
+    left: 3%;
+
+  }
+
+input::placeholder {
+            color: white;
+            opacity: 1; /* Firefox aplica opacidade por padrão */
+        }
+
+input:focus{
+     outline: none; /* Remove a borda padrão do navegador */
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.divPequena-modal2{
+     /* border: 2px solid red; */
+    width: 100%;
+    height: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3d4145;
+    position: relative;
+    top: -2%;
+}
+
+ .InfoUsuarios-modal2{
+    /* border: 2px solid white; */
+    height: 25%;
+    width: 100%;
+    position: relative;
+    top:-3%;
+    gap: 8%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    
+  }
+
+  .Editar_modal{
+    width: 40%;
+    height: 20%;
+    border: none;
+    background-color: white;
+    color: #1E263F;
+    font-family: roboto;
+    border-radius: 20px;
+    font-size: 100%;
+    position: relative;
+    top: 10%;
+    left: 4%;
   }
