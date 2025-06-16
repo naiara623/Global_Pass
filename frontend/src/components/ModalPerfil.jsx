@@ -178,8 +178,8 @@ useEffect(() => {
                 <h1 className='titulo1-modal'>Melhore o seu perfil</h1>
               </div>
 
-              {loading && <p className="loading-message">Carregando...</p>}
-              {error && <p className="error-message">{error}</p>}
+              {/* {loading && <p className="loading-message">Carregando...</p>}
+              {error && <p className="error-message">{error}</p>} */}
 
               <div className='InfoUsuarios-modal'>
                 <input 

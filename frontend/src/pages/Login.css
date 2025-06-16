@@ -51,6 +51,8 @@
     border-radius:20px 20px 0 0;
 }
 
+
+
 .divRosaEscuro-Login{
     /* border: 2px solid pink; */
     background-color: #3B444F;
@@ -62,12 +64,19 @@
     gap: 15px;
 }
 
+
+/* .divpreta2-lodin{
+    border: 2px solid yellowgreen;
+    height: 50%;
+    width: 100%;
+} */
 .divPreta-Login{
     /* border: 2px solid blue; */
     background-color: #3B444F;
     height: 20%;
     width: 100%;
     border-radius:0 0 20px 20px ;
+    
 }
 
 .nome-Login{
