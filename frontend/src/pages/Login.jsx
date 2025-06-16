@@ -3,63 +3,65 @@ import { useNavigate } from 'react-router-dom';
 import './Login.css';
 
 function LoginClaro() {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mensagemEmail, setMensagemEmail] = useState('');
   const [mensagemSenha, setMensagemSenha] = useState('');
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // ⚠️ ÚNICA FUNÇÃO MODIFICADA (integrada com API)
-
-   const [isLoading, setIsLoading] = useState(false);
   const handleLogin = async () => {
-  let erro = false;
-  setMensagemEmail('');
-  setMensagemSenha('');
+    // Validações do formulário
+    let erro = false;
+    setMensagemEmail('');
+    setMensagemSenha('');
 
-  if (!email) {
-    setMensagemEmail('O campo de e-mail está vazio.');
-    erro = true;
-  } else if (!email.includes('@') || !email.includes('.')) {
-    setMensagemEmail('E-mail inválido.');
-    erro = true;
-  }
-
-  if (!senha) {
-    setMensagemSenha('O campo de senha está vazio.');
-    erro = true;
-  }
-
-  if (erro) return;
-
-  setIsLoading(true);
-
-  try {
-    const response = await fetch('http://localhost:3001/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, senha }),
-    });
-
-    const data = await response.json();
-
-    if (data.erro) {
-      setMensagemSenha(data.erro);
-    } else if (data.usuario) {
-      localStorage.setItem('userProfile', JSON.stringify(data.usuario));
-      setShowModal(true);
-    } else {
-      setMensagemSenha('Usuário ou senha incorretos');
+    if (!email) {
+      setMensagemEmail('O campo de e-mail está vazio.');
+      erro = true;
+    } else if (!email.includes('@') || !email.includes('.')) {
+      setMensagemEmail('E-mail inválido.');
+      erro = true;
     }
-  } catch (err) {
-    console.error('Erro ao logar:', erro);
-    setMensagemSenha('Erro no servidor');
-  } finally {
-    setIsLoading(false);
-  }
-};
+
+    if (!senha) {
+      setMensagemSenha('O campo de senha está vazio.');
+      erro = true;
+    }
+
+    if (erro) return;
+
+    setIsLoading(true);
+
+    try {
+const response = await fetch('http://localhost:3001/api/login', {
+  method: 'POST',
+  credentials: 'include', // ← Permite cookies
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email, senha }),
+});
+
+
+      const data = await response.json();
+
+     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  setMensagemEmail('E-mail inválido.');
+  erro = true;
+} else if (data.sucesso) {
+        // Mostra o modal de sucesso
+        setShowModal(true);
+      } else {
+        setMensagemSenha('Credenciais inválidas');
+      }
+    } catch (err) {
+      console.error('Erro ao logar:', err);
+      setMensagemSenha('Erro no servidor');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   function alternarSenha() {
     setMostrarSenha(!mostrarSenha);
@@ -121,7 +123,9 @@ function LoginClaro() {
 
           <div className="divPreta-Login">
             <div className="Button-Login">
-              <button className='button-Login' onClick={handleLogin} disabled={isLoading}>Logar</button>
+              <button className='button-Login' onClick={handleLogin} disabled={isLoading}>
+                {isLoading ? 'Carregando...' : 'Logar'}
+              </button>
             </div>
           </div>
         </div>

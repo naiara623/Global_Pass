@@ -159,60 +159,56 @@ function Inicio() {
         <div className='inicio-quadrado-icons'>
 
 <div className='inicio-button'>
+  <div className='okokokok'>
+
+
 
           <button className='inicio-transporte-icon' onClick={telaTrans}>
-          <img className='icon-inicio' src="trannsporte.png" alt="Tela de transporte" />
+          <img className='icon-inicio' src="okOK.png" alt="Tela de transporte" />
+          <div className='inicio-frases1'>
+           <p className='inicio-ppp'>
+Transporte
+</p>
+          </div>
           </button>
 
           
           <button className='inicio-estudo-icon'  onClick={telaEduca}>
-          <img className='icon-inicio' src="school.png" alt="Tela de educação" />
+          <img className='icon-inicio' src="ok.png" alt="Tela de educação" />
+          <div className='inicio-frases1'>
+
+          <p className='inicio-ppp'>
+         Educação
+</p>
+          </div>
           </button>
           
           <button className='inicio-saude-icon'  onClick={telaSal}>
-          <img className='icon-inicio' src="saude.png" alt="Tela de saude" />
+          <img className='icon-inicio' src="Ook.png" alt="Tela de saude" />
+          <div className='inicio-frases1'>
+
+          <p className='inicio-ppp'>
+          Saúde
+</p>
+          </div>
           </button>
 </div>
-
-<div className='inicio-frases1'>
-
-  <div className='inicio-palavra-tran'>
-  <p className='inicio-ppp'>
-Transporte
-</p>
-  </div>
-
-  <div className='inicio-palavra-estu'>
-  <p className='inicio-ppp'>
-Processo de ensino 
-</p>
-  </div>
-
-  <div className='inicio-palavra-saud'>
-  <p className='inicio-ppp'>
-Saúde
-</p>
-  </div>
-
 </div>
-        
+
         </div>
       
       </div>
       
-      <div className='inicio-linha-bonita'>
       
-      <div className='inicio-linha1'></div>
-      <div className='inicio-linha2'></div>
-       
-         </div>
       
       <div className='inicio-conteiner-video'>
       
         <div className='inicio-div-texto'>
 
 <div className='inicio-texto-video'>
-<h4 className='inicio-titulo'>Florianópolis, capital de Santa Catarina</h4>
+<div className='Titulo-div'>
+  <h4 className='inicio-titulo'>Florianópolis, capital de Santa Catarina</h4>
+  </div>
         <p className='inicio-frases2'>È uma ilha no sul do Brasil famosa
 por suas prais, natureza e qualidade
 de vida.
@@ -233,7 +229,7 @@ frutos do mar</p>
         </div>
         
         <div className='inicio-div-video'>
-     <video width="280px" height="500px" id="myVideo" controls>
+     <video width="340px" height="600px" id="myVideo" controls>
   <source src="floripa-video.mp4" type="video/mp4"/>
 </video>
 
@@ -245,7 +241,12 @@ frutos do mar</p>
       
       </div>
       
-  
+      <div className='inicio-linha-bonita'>
+      
+      <div className='inicio-linha1'></div>
+      <div className='inicio-linha2'></div>
+       
+         </div>
       
       <div className='inicio-conteiner-comentarios'>
       

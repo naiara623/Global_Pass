@@ -1,253 +1,243 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+// import './PerfilDePostagem.css';
 import { useNavigate } from 'react-router-dom';
-import './Perfil.css';
+import './Perfil.css'
+import ModalPerfil from '../components/ModalPerfil';
 
 function Perfil() {
-  const navigate = useNavigate();
 
-  const [dados, setDados] = useState({
-    nome: '',
-    telefone: '',
-    email: '',
-    nacionalidade: '',
-    idioma: ''
-  });
+ const [profileData, setProfileData] = useState({});
 
-  const [editando, setEditando] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [acao, setAcao] = useState(''); // 'sair' ou 'excluir'
-  const [showSuccessModal, setShowSuccessModal] = useState(false); // Modal de sucesso
-
-  useEffect(() => {
-    const storedData = localStorage.getItem('userProfile');
-    if (storedData) {
-      setDados(JSON.parse(storedData));
-    }
-  }, []);
-
-  const saveToLocalStorage = (updatedData) => {
-    localStorage.setItem('userProfile', JSON.stringify(updatedData));
+  const handleProfileUpdate = (updatedData) => {
+    setProfileData(updatedData);
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    const updatedDados = { ...dados, [name]: value };
-    setDados(updatedDados);
-  };
-
-  const handleEditarClick = () => {
-    if (editando) {
-      // Se estiver editando, ao clicar no botão, salvar as alterações
-      saveToLocalStorage(dados);
-      setShowSuccessModal(true);
-      setTimeout(() => {
-        setShowSuccessModal(false);
-      }, 5000); // Fecha o modal automaticamente após 5 segundos
-    }
-    setEditando(!editando);
-  };
-
-  const handleSairClick = () => {
-    setAcao('sair');
-    setShowModal(true);
-  };
-
-  const handleExcluirClick = () => {
-    setAcao('excluir');
-    setShowModal(true);
-  };
-
-  const confirmarAcao = () => {
-    if (acao === 'sair') {
-      navigate('/');
-    } else if (acao === 'excluir') {
-      localStorage.removeItem('userProfile');
-      navigate('/');
-    }
-    setShowModal(false);
-    setAcao('');
-  };
-
-  const cancelarAcao = () => {
-    setShowModal(false);
-    setAcao('');
-  };
-
+    const navigate = useNavigate();
+    
+    const telaPost = () => {
+      navigate('/postagem');
+    };
+  
+    const [user, setUser] = useState(() => {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {
+        nome: 'Nome do Usuário',
+        email: 'usuario@exemplo.com',
+        followers: 245,
+        following: 178,
+        posts: 0
+      };
+      
+      return {
+        ...currentUser,
+        profileImage: currentUser.profileImage || null,
+        previewImage: currentUser.profileImage || null
+      };
+    });
+    
+    const fileInputRef = useRef(null);
+    const [userPosts, setUserPosts] = useState([]);
+  
+    // Estilos definidos como objetos constantes
+    const styles = {
+      initialLetter: {
+        fontSize: '40px',
+        color: '#fff'
+      },
+      postContainer: {
+        marginBottom: '20px',
+        position: 'relative'
+      },
+      postImage: {
+        width: '100%',
+        borderRadius: '8px'
+      },
+      deleteButton: {
+        position: 'absolute',
+        top: '10px',
+        right: '10px',
+        background: 'red',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        padding: '5px 10px',
+        cursor: 'pointer'
+      },
+      noPostsMessage: {
+        textAlign: 'center',
+        padding: '20px'
+      },
+      fileInput: {
+        display: 'none'
+      }
+    };
+  
+    const handleImageChange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const updatedUser = {
+            ...user,
+            profileImage: reader.result,
+            previewImage: reader.result
+          };
+          setUser(updatedUser);
+          
+          const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+          const updatedCurrentUser = {
+            ...currentUser,
+            profileImage: reader.result
+          };
+          localStorage.setItem('currentUser', JSON.stringify(updatedCurrentUser));
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+  
+    const handleUploadClick = () => {
+      fileInputRef.current.click();
+    };
+  
+    useEffect(() => {
+      const storedPosts = JSON.parse(localStorage.getItem('posts') || '[]');
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      
+      if (currentUser) {
+        const filteredPosts = storedPosts.filter(post => 
+          post.username === currentUser.email
+        );
+        setUserPosts(filteredPosts);
+        setUser(prev => ({
+          ...prev,
+          posts: filteredPosts.length
+        }));
+      }
+    }, []);
+  
+    const handleDeletePost = (postId) => {
+      const allPosts = JSON.parse(localStorage.getItem('posts') || '[]');
+      const updatedPosts = allPosts.filter(post => post.id !== postId);
+      
+      localStorage.setItem('posts', JSON.stringify(updatedPosts));
+      setUserPosts(updatedPosts.filter(post => 
+        post.username === JSON.parse(localStorage.getItem('currentUser')).email
+      ));
+      
+      setUser(prev => ({
+        ...prev,
+        posts: updatedPosts.filter(post => 
+          post.username === JSON.parse(localStorage.getItem('currentUser')).email
+        ).length
+      }));
+    };
+  
+    // Função para gerar o estilo da foto de perfil de forma segura
+    const getProfileImageStyle = () => {
+      const imageUrl = user.previewImage || 
+                      (JSON.parse(localStorage.getItem('currentUser'))?.profileImage);
+      
+      if (imageUrl) {
+        return {
+          backgroundImage: `url(${imageUrl})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        };
+      }
+      return {};
+       };
   return (
-    <div className='divAmarela-Perfil'>
-      <div className="divMarrom-perfil">
-        <div className="divQualquer2-perfil"></div>
-        <div className="divRosa-Perfil">
-          <div className="divRoxa-perfil">
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '90%', widows: '90%'}}>
-              <div className="avatar">
-                
-                <img className='foto-perfil' src="Test Account.png" alt="Perfil de usuário" />
-              </div>
-            </div>
-            <div className="NomePessoa-Perfil">
-              {editando ? (
-                <input
-                  type="text"
-                  className='NomeIno-perfil'
-                  placeholder='Digite seu nome'
-                  value={dados.nome}
-                  name="nome"
-                  onChange={handleChange}
-                  style={{
-                    fontSize: '31px',
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                    background: 'transparent',
-                    border: 'none',
-                    outline: 'none',
-                    color: 'white'
-                  }}
-                />
-              ) : (
-                <h1 className='titulo2-perfil'>{dados.nome || 'Nome da Pessoa'}</h1>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="qualquer3-perfil"></div>
-        <div className="divazul-perfil">
-          <button className='Excluir-perfil' onClick={handleExcluirClick}>Excluir</button>
-          <button className='Sair-perfil' onClick={handleSairClick}>Sair</button>
-        </div>
+    <div className='div-q-inglobaTudo-PerfPostagem'>
+      <div className='Navbar-PerfPostagem'>
+        <button className='arrow-PerfilPostagem' onClick={telaPost}>
+          <img src="Arrow.png" alt="" className='arrow-PerfPostagem2' />
+        </button>
+
+      <div className='editar-perfilPostagem'>
+         <ModalPerfil onProfileUpdate={handleProfileUpdate}/>
+      </div>
+    
+
+
       </div>
 
-      <div className="divVermelha-perfil">
-        <div className="divverde-perfil"></div>
-        <div className="divazulcaro">
-          <div className="divroxaescuro-perfil"></div>
-          <div className="divlaranja-perfil">
-            <div className="nada-perfil"></div>
-            <div className="divverdeescuro-perfil">
+      <div className='Conteine-foto-nomeUser-PerfPostagem'>
+        <div className='conteine-da-fotoPerfil-PerfPostagem'>
+          <div 
+            className='fotoPerfil-PerfPostagem'
+            onClick={handleUploadClick}
+            style={getProfileImageStyle()}
+          >
+            {!user.previewImage && 
+             !(JSON.parse(localStorage.getItem('currentUser'))?.profileImage) && (
+              <span style={styles.initialLetter}>
+                {user.nome.charAt(0)}
+              </span>
+            )}
+          </div>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            accept="image/*"
+            style={styles.fileInput}
+          />
+        </div>
 
-              <div className="nome-perfil">
-                <label className='nomeLabel-perfil'>Telefone:</label>
-                <input
-                  type="text"
-                  className='NomeIn-perfil'
-                  placeholder='Ex: (00) 00000-0000'
-                  value={dados.telefone}
-                  name="telefone"
-                  onChange={handleChange}
-                  disabled={!editando}
-                />
-              </div>
+        <div className='n°-seguidores-seguindo-PerfPostagem'>
+          <div className='stat-item'>
+            <div className='stat-number'>{userPosts.length}</div>
+            <div className='stat-label'>Publicações</div>
+          </div>
 
-              <div className="nome-perfil">
-                <label className='nomeLabel-perfil'>Email:</label>
-                <input
-                  type="text"
-                  className='NomeIn-perfil'
-                  placeholder='Ex: maria@gmail.com'
-                  value={dados.email}
-                  name="email"
-                  onChange={handleChange}
-                  disabled={!editando}
-                />
-              </div>
+          <div className='stat-item'>
+            <div className='stat-number'>{user.followers}</div>
+            <div className='stat-label'>Seguidores</div>
+          </div>
 
-              <div className="nome-perfil">
-                <label className='nomeLabel-perfil'>Nacionalidade:</label>
-                <input
-                  type="text"
-                  className='NomeIn-perfil'
-                  placeholder='Ex: Brasileira'
-                  value={dados.nacionalidade}
-                  name="nacionalidade"
-                  onChange={handleChange}
-                  disabled={!editando}
-                />
-              </div>
-
-              <div className="nome-perfil">
-                <label className='nomeLabel-perfil'>Idioma:</label>
-                <input
-                  type="text"
-                  className='NomeIn-perfil'
-                  placeholder='Ex: Português'
-                  value={dados.idioma}
-                  name="idioma"
-                  onChange={handleChange}
-                  disabled={!editando}
-                />
-              </div>
-
-              <div className='button2-perfil'>
-                <div className='oimundo-perfil'></div>
-                <div className='divButon-perfil'>
-                  <button className='editar-perfil' onClick={handleEditarClick}>
-                    {editando ? 'Salvar' : 'Editar'}
-                  </button>
-                </div>
-              </div>
-
-            </div>
+          <div className='stat-item'>
+            <div className='stat-number'>{user.following}</div>
+            <div className='stat-label'>Seguindo</div>
           </div>
         </div>
+
+        <div className='texto-dos-numeros-PerfPostagem'>
+  <h2>{user.nome}</h2>
+  <p>@{user.username || user.email?.split('@')[0]}</p>
+</div>
       </div>
 
-      {/* Modal de confirmação */}
-      {showModal && (
-        <div style={modalOverlayStyle}>
-          <div style={modalContentStyle}>
-            <h3>Tem certeza que deseja {acao === 'sair' ? 'sair da conta' : 'excluir sua conta'}?</h3>
-            <div style={{ marginTop: '20px' }}>
-              <button onClick={confirmarAcao} style={buttonStyle}>Sim</button>
-              <button onClick={cancelarAcao} style={buttonStyle}>Não</button>
-            </div>
-          </div>
+      <div className='conteine-da-postagens-PerfPostagem'>
+        <div className='conteine-texto-publicaçoes-PerfPostagem'>
+          <h3>Publicações</h3>
         </div>
-      )}
 
-      {/* Modal de sucesso */}
-      {showSuccessModal && (
-        <div style={modalOverlayStyle}>
-          <div style={modalContentStyle}>
-            <h3>Salvo com sucesso!</h3>
-            <div style={{ marginTop: '20px' }}>
-              <button onClick={() => setShowSuccessModal(false)} style={buttonStyle}>OK</button>
-            </div>
-          </div>
+        <div className='conteine-das-publicaçoes'>
+          {userPosts.length > 0 ? (
+            userPosts.map(post => (
+              <div key={post.id} style={styles.postContainer}>
+                <img 
+                  src={post.imageUrl} 
+                  alt="Post" 
+                  style={styles.postImage}
+                />
+                <p>{post.caption}</p>
+                <button 
+                  onClick={() => handleDeletePost(post.id)}
+                  style={styles.deleteButton}
+                >
+                  Excluir
+                </button>
+              </div>
+            ))
+          ) : (
+            <p style={styles.noPostsMessage}>
+              Nenhuma publicação ainda
+            </p>
+          )}
         </div>
-      )}
+      </div>
     </div>
-  );
+  )
 }
 
-// Estilos do modal
-const modalOverlayStyle = {
-  position: 'fixed',
-  top: 0, left: 0,
-  width: '100vw', height: '100vh',
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  zIndex: 9999,
-};
-
-const modalContentStyle = {
-  backgroundColor: '#3B444F',
-  padding: '30px',
-  borderRadius: '8px',
-  boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
-  textAlign: 'center',
-  maxWidth: '400px',
-  width: '90%',
-  color: '#fff'
-};
-
-const buttonStyle = {
-  margin: '10px',
-  padding: '10px 20px',
-  fontSize: '16px',
-  cursor: 'pointer',
-  borderRadius: '20px',
-};
-
-export default Perfil;
+export default Perfil
