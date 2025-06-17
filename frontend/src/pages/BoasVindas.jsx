@@ -62,9 +62,9 @@ function BoasVindas() {
                             <Splide
                                 options={{
                                 type: 'loop',
-                                perPage: 2,
+                                perPage: 1,
                                 autoplay: true,
-                                interval: 3000,
+                                interval: 10000,
                                 pauseOnHover: true,
                                 arrows: true,
                                 pagination: true,
@@ -72,24 +72,23 @@ function BoasVindas() {
                                 }}
                                 aria-label="Imagens de exemplo"
                             >
-                                {/* <SplideSlide>
-                                <img src="img-ganela.jpg" alt="" className='' />
+                                <SplideSlide>
+                                <img src="banner_GLP.png
+                                " alt="" className='banner_GPL-boasvindas'/>
+                                
                                 </SplideSlide>
 
                                 <SplideSlide>
-                                <img src="img-montanha.jpg
-                                " alt="" />
-                                </SplideSlide> */}
-
-                                {/* <SplideSlide>
-                                <img src="https://placekitten.com/402/300" alt="Gatinho 3" />
+                                <img src="banner_saude.png
+                                " alt="" className='banner_saude-boasvindas' />
                                 </SplideSlide>
 
                                 <SplideSlide>
-                                <img src="https://placekitten.com/403/300" alt="Gatinho 4" />
-                                </SplideSlide> */}
+                                <img src="banner_passe.png
+                                " alt="" className='banner_passe-boasvindas' />
+                                </SplideSlide>
                             </Splide>
-                                                    
+                                                     
                                 
 
                         </div> 
