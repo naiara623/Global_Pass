@@ -11,10 +11,15 @@
     justify-content: end;
  
   }
+
+  .cor-div{
+   border: 2px solid red;  
+  }
   
   /* Estilo do modal em si */
   .modal {
-    background-color:var(--cor-2-escuro);
+   
+    background-color:var(--cor-1-escuro);
     display: inline;
     justify-content: center;
     align-items: start;

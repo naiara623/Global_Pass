@@ -229,7 +229,7 @@ frutos do mar</p>
         </div>
         
         <div className='inicio-div-video'>
-     <video width="340px" height="600px" id="myVideo" controls>
+     <video width="310px" height="570px" id="myVideo" controls>
   <source src="floripa-video.mp4" type="video/mp4"/>
 </video>
 

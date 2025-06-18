@@ -200,7 +200,7 @@ const ExpandableSection = ({ title, children }) => {
         <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 </style>
-                <Navbar/>
+                <Navbar style="color: blue; font-size: 16px;"/>
        
 
        <div className='Rosa-educação'>
@@ -259,7 +259,7 @@ const ExpandableSection = ({ title, children }) => {
          <div className='RoxoClaro-educação'>
             <div className='tubarão-educação'>
 
-               <div><iframe src="https://www.google.com/maps/d/u/0/embed?mid=1cG76n36kAR8emNl415kZpH6B-QXa6aQ&ehbc=2E312F&noprof=1" width="640" height="480" className='mapa-educacao'></iframe></div>
+               <div className='Divmap'><iframe src="https://www.google.com/maps/d/u/0/embed?mid=1cG76n36kAR8emNl415kZpH6B-QXa6aQ&ehbc=2E312F&noprof=1" width="640" height="480" className='mapa-educacao'></iframe></div>
             </div>
 
             

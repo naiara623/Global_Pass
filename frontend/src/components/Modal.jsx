@@ -31,7 +31,7 @@ function Modal() {
   };
 
   return (
-    <div>
+    <div className='cor-div'>
       <button className='modal-button' onClick={toggleModal}> <img className='inicio-modal' src="menu-modal.png" alt="" /></button>
       
       {isOpen && (
