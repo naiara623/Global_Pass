@@ -146,7 +146,6 @@ function LoginClaro() {
         <div style={modalOverlayStyle}>
           <div style={modalContentStyle}>
             <h2 style={{ color: '#fff' }}>Login realizado com sucesso!</h2>
-            <p style={{ color: '#fff' }}>Redirecionando...</p>
             <button onClick={fecharModal} style={buttonStyle}>Fechar</button>
           </div>
         </div>

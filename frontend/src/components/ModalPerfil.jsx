@@ -12,47 +12,53 @@ function ModalPerfil({ onProfileUpdate }) {
     email: ''
   });
 
-  const [editando, setEditando] = useState(false);
+ const [editando, setEditando] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [acao, setAcao] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-useEffect(() => {
-  const carregarDadosUsuario = async () => {
-    setLoading(true);
-    setError('');
-    try {
-      const response = await fetch('http://localhost:3001/api/usuario-atual', {
-        credentials: 'include'
-      });
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || 'Erro ao carregar dados do usuário');
+  useEffect(() => {
+    const carregarDadosUsuario = async () => {
+      setLoading(true);
+      setError('');
+      try {
+        const response = await fetch('http://localhost:3001/api/usuario-atual', {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        if (!response.ok) {
+          if (response.status === 401) {
+            navigate('/login');
+            return;
+          }
+          throw new Error('Erro ao carregar dados do usuário');
+        }
+        
+        const userData = await response.json();
+        setDados({
+          nome: userData.nome || '',
+          telefone: userData.telefone || '',
+          nacionalidade: userData.nacionalidade || '',
+          idioma: userData.idioma || '',
+          email: userData.email || ''
+        });
+      } catch (err) {
+        console.error('Erro ao carregar dados:', err);
+        setError('Falha ao carregar perfil. Tente novamente.');
+      } finally {
+        setLoading(false);
       }
-      
-      const userData = await response.json().catch(() => ({})); // Fallback para objeto vazio se não for JSON
-      
-      // Garantir que todos os campos sejam strings (tratando null/undefined)
-      setDados({
-        nome: userData.nome || '',
-        telefone: userData.telefone || '',
-        nacionalidade: userData.nacionalidade || '',
-        idioma: userData.idioma || '',
-        email: userData.email || ''
-      });
-    } catch (err) {
-      console.error('Erro ao carregar dados:', err);
-      setError(err.message || 'Falha ao carregar perfil. Tente novamente.');
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  carregarDadosUsuario();
-}, [onProfileUpdate]); // Adicionei onProfileUpdate como dependência
+    if (isOpen) {
+      carregarDadosUsuario();
+    }
+  }, [isOpen, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,30 +70,23 @@ useEffect(() => {
       setLoading(true);
       setError('');
       try {
-        if (!dados.email) {
-          throw new Error('Email do usuário não encontrado');
-        }
-
-        const emailCodificado = encodeURIComponent(dados.email);
-        const dadosAtualizacao = {
-          nome: dados.nome || '',
-          telefone: dados.telefone || null,
-          nacionalidade: dados.nacionalidade || '',
-          idioma: dados.idioma || ''
-        };
-        
-        const response = await fetch(`http://localhost:3001/api/usuarios/${emailCodificado}`, {
+        const response = await fetch(`http://localhost:3001/api/usuarios/${encodeURIComponent(dados.email)}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
           },
           credentials: 'include',
-          body: JSON.stringify(dadosAtualizacao)
+          body: JSON.stringify({
+            nome: dados.nome,
+            telefone: dados.telefone,
+            nacionalidade: dados.nacionalidade,
+            idioma: dados.idioma
+          })
         });
 
         if (!response.ok) {
           const errorData = await response.json();
-          throw new Error(errorData.message || 'Erro ao atualizar perfil');
+          throw new Error(errorData.erro || 'Erro ao atualizar perfil');
         }
 
         const updatedData = await response.json();
@@ -97,7 +96,6 @@ useEffect(() => {
         if (onProfileUpdate) {
           onProfileUpdate(updatedData);
         }
-
       } catch (err) {
         console.error("Erro na atualização:", err);
         setError(err.message || 'Erro ao atualizar perfil');
@@ -120,26 +118,38 @@ useEffect(() => {
   };
 
   const confirmarAcao = async () => {
+    setLoading(true);
     try {
       if (acao === 'sair') {
-        // Fazer logout
-        await fetch('http://localhost:3001/api/logout', {
+        const response = await fetch('http://localhost:3001/api/logout', {
           method: 'POST',
-          credentials: 'include'
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
+
+        if (!response.ok) throw new Error('Erro ao fazer logout');
+        
         navigate('/login');
       } else if (acao === 'excluir') {
-        // Excluir conta
-        await fetch(`http://localhost:3001/api/usuarios/${dados.email}`, {
+        const response = await fetch(`http://localhost:3001/api/usuarios/${encodeURIComponent(dados.email)}`, {
           method: 'DELETE',
-          credentials: 'include'
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
         });
+
+        if (!response.ok) throw new Error('Erro ao excluir conta');
+        
         navigate('/login');
       }
     } catch (err) {
       console.error("Erro ao executar ação:", err);
-      alert(`Erro: ${err.message}`);
+      setError(`Erro: ${err.message}`);
     } finally {
+      setLoading(false);
       setShowConfirmationModal(false);
       setAcao('');
       setIsOpen(false);
@@ -153,9 +163,9 @@ useEffect(() => {
 
   const toggleModal = () => {
     setIsOpen(!isOpen);
-    // Resetar estado de edição quando fechar o modal
     if (isOpen) {
       setEditando(false);
+      setError('');
     }
   };
 
@@ -178,8 +188,8 @@ useEffect(() => {
                 <h1 className='titulo1-modal'>Melhore o seu perfil</h1>
               </div>
 
-              {/* {loading && <p className="loading-message">Carregando...</p>}
-              {error && <p className="error-message">{error}</p>} */}
+             {loading && !showConfirmationModal && <p className="loading-message">Carregando...</p>}
+              {error && <p className="error-message">{error}</p>}
 
               <div className='InfoUsuarios-modal'>
                 <input 
@@ -187,7 +197,7 @@ useEffect(() => {
                   name="nome"
                   className='InpuTNomeUsuario-modal' 
                   placeholder='Nome de usuário' 
-                  value={dados.nome || ''}
+                    value={dados.nome}
                   onChange={handleChange}
                   readOnly={!editando}
                 />
@@ -196,7 +206,7 @@ useEffect(() => {
                   name="nacionalidade"
                   className='InpuTNomeUsuario-modal' 
                   placeholder='Nacionalidade' 
-                  value={dados.nacionalidade || ''}
+                value={dados.nacionalidade}
                   onChange={handleChange}
                   readOnly={!editando}
                 />
@@ -205,7 +215,7 @@ useEffect(() => {
                   name="idioma"
                   className='InpuTNomeUsuario-modal' 
                   placeholder='Idioma' 
-                  value={dados.idioma || ''}
+                  value={dados.idioma}
                   onChange={handleChange}
                   readOnly={!editando}
                 />
@@ -214,7 +224,7 @@ useEffect(() => {
                   name="telefone"
                   className='InpuTNomeUsuario-modal' 
                   placeholder='Telefone' 
-                  value={dados.telefone || ''}
+                   value={dados.telefone}
                   onChange={handleChange}
                   readOnly={!editando}
                 />
@@ -223,13 +233,13 @@ useEffect(() => {
               <div className='divPequena-modal2'></div>
 
               <div className='InfoUsuarios-modal2'>
-                <button className='Editar_modal' onClick={handleEditarClick}>
-                  {editando ? 'Salvar' : 'Editar conta'}
+                <button className='Editar_modal' onClick={handleEditarClick} disabled={loading}>
+             {editando ? (loading ? 'Salvando...' : 'Salvar') : 'Editar conta'}
                 </button>
-                <button className='Editar_modal' onClick={handleSairClick}>
+                <button className='Editar_modal' onClick={handleSairClick} disabled={loading}>
                   Sair da conta
                 </button>
-                <button className='Editar_modal' onClick={handleExcluirClick}>
+                <button className='Editar_modal' onClick={handleExcluirClick} disabled={loading}>
                   Deletar Conta
                 </button>
               </div>
@@ -248,9 +258,11 @@ useEffect(() => {
                 ? 'Tem certeza que deseja sair da sua conta?' 
                 : 'Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.'}
             </p>
+             {error && <p className="error-message">{error}</p>}
             <div className="confirmation-buttons">
-              <button onClick={confirmarAcao}>Sim</button>
-              <button onClick={cancelarAcao}>Cancelar</button>
+              <button onClick={confirmarAcao} disabled={loading}>                {loading ? 'Processando...' : 'Sim'}
+</button>
+              <button onClick={cancelarAcao} disabled={loading}>Cancelar</button>
             </div>
           </div>
         </div>
