@@ -31,18 +31,23 @@ function Modal() {
   };
 
   return (
+<<<<<<< HEAD
     <div className='cor-div'>
       <button className='modal-button' onClick={toggleModal}> <img className='inicio-modal' src="menu-modal.png" alt="" /></button>
+=======
+    <div>
+      <button className='modal-button1' onClick={toggleModal}> <img className='inicio-modal' src="menu-modal.png" alt="" /></button>
+>>>>>>> a3b2510e1e81c62d3ada125efe277166aa3e792c
       
       {isOpen && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <div className='modal-arruma'>
+        <div className="modal-overlay1">
+          <div className="modal1">
+            <div className='modal-arruma1'>
             <h2>GLOBAL PASS</h2>
             
-            <button className='button1' onClick={toggleModal}>X</button>
+            <button className='buttonX' onClick={toggleModal}>X</button>
             </div>
-            <div className='modal-arrumar'>
+            <div className='modal-arrumar1'>
 
            <div className='inicio'><button className='butonmodal1' onClick={irparainicio}><img className='img-modal' src="home-page.png" alt="Tela inicial" /> <h3 className='lulamolusco1-modal'>Tela Inicial</h3></button></div>
 

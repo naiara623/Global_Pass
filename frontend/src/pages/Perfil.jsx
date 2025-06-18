@@ -1,253 +1,255 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Perfil.css';
+import ModalPerfil from '../components/ModalPerfil';
 
 function Perfil() {
   const navigate = useNavigate();
-
-  const [dados, setDados] = useState({
-    nome: '',
-    telefone: '',
+  const fileInputRef = useRef(null);
+  const [user, setUser] = useState({
+    nome: 'Carregando...',
     email: '',
-    nacionalidade: '',
-    idioma: ''
+    followers: 0,
+    following: 0,
+    posts: 0,
+    profileImage: null,
+    previewImage: null,
   });
+  const [userPosts, setUserPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const [editando, setEditando] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [acao, setAcao] = useState(''); // 'sair' ou 'excluir'
-  const [showSuccessModal, setShowSuccessModal] = useState(false); // Modal de sucesso
-
+  // Busca os dados do usuário ao carregar o componente
   useEffect(() => {
-    const storedData = localStorage.getItem('userProfile');
-    if (storedData) {
-      setDados(JSON.parse(storedData));
-    }
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/usuario-atual', {
+         
+          
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+         console.log("response =======>>>>> ", response);
+        if (!response.ok) {
+          // if (response.status === 401) {
+          //   navigate('/login');
+          //   return;
+          // }
+          throw new Error('Erro ao carregar dados');
+        }
+        
+        const userData = await response.json();
+        setUser({
+          ...userData,
+          previewImage: userData.profileImage || null,
+        });
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        if (error.message.includes('Não autenticado')) {
+          navigate('/login');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [navigate]);
+
+  // Atualiza os posts do usuário
+  useEffect(() => {
+    const fetchUserPosts = async () => {
+      try {
+        const response = await fetch('http://localhost:3001/api/posts-do-usuario', {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        if (!response.ok) throw new Error('Erro ao buscar posts');
+        
+        const posts = await response.json();
+        setUserPosts(posts);
+        setUser(prev => ({ ...prev, posts: posts.length }));
+      } catch (error) {
+        console.error("Erro ao buscar posts:", error);
+      }
+    };
+
+    fetchUserPosts();
   }, []);
 
-  const saveToLocalStorage = (updatedData) => {
-    localStorage.setItem('userProfile', JSON.stringify(updatedData));
+  // Atualiza o perfil quando o ModalPerfil faz mudanças
+  const handleProfileUpdate = (updatedData) => {
+    setUser(prev => ({
+      ...prev,
+      nome: updatedData.nome,
+      nacionalidade: updatedData.nacionalidade,
+      idioma: updatedData.idioma,
+      telefone: updatedData.telefone,
+    }));
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    const updatedDados = { ...dados, [name]: value };
-    setDados(updatedDados);
-  };
+  // Upload de nova imagem de perfil
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  const handleEditarClick = () => {
-    if (editando) {
-      // Se estiver editando, ao clicar no botão, salvar as alterações
-      saveToLocalStorage(dados);
-      setShowSuccessModal(true);
-      setTimeout(() => {
-        setShowSuccessModal(false);
-      }, 5000); // Fecha o modal automaticamente após 5 segundos
+    const formData = new FormData();
+    formData.append('profileImage', file);
+
+    try {
+      const response = await fetch('http://localhost:3001/api/upload-profile-image', {
+        method: 'POST',
+        credentials: 'include',
+        body: formData,
+      });
+      
+      if (!response.ok) throw new Error('Erro ao fazer upload');
+      
+      const { imageUrl } = await response.json();
+      
+      setUser(prev => ({
+        ...prev,
+        profileImage: imageUrl,
+        previewImage: imageUrl,
+      }));
+    } catch (error) {
+      console.error("Erro ao fazer upload:", error);
     }
-    setEditando(!editando);
   };
 
-  const handleSairClick = () => {
-    setAcao('sair');
-    setShowModal(true);
-  };
-
-  const handleExcluirClick = () => {
-    setAcao('excluir');
-    setShowModal(true);
-  };
-
-  const confirmarAcao = () => {
-    if (acao === 'sair') {
-      navigate('/');
-    } else if (acao === 'excluir') {
-      localStorage.removeItem('userProfile');
-      navigate('/');
+  // Função para deletar post
+  const handleDeletePost = async (postId) => {
+    try {
+      const response = await fetch(`http://localhost:3001/api/posts/${postId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      if (!response.ok) throw new Error('Erro ao deletar post');
+      
+      setUserPosts(prev => prev.filter(post => post.id !== postId));
+      setUser(prev => ({ ...prev, posts: prev.posts - 1 }));
+    } catch (error) {
+      console.error("Erro ao deletar post:", error);
     }
-    setShowModal(false);
-    setAcao('');
   };
 
-  const cancelarAcao = () => {
-    setShowModal(false);
-    setAcao('');
+  // Estilos inline
+  const styles = {
+    initialLetter: { fontSize: '40px', color: '#fff' },
+    postImage: { width: '100%', borderRadius: '8px' },
+    deleteButton: { 
+      position: 'absolute', 
+      top: '10px', 
+      right: '10px', 
+      background: 'red', 
+      color: 'white', 
+      border: 'none', 
+      borderRadius: '4px', 
+      padding: '5px 10px', 
+      cursor: 'pointer' 
+    },
   };
+
+  if (loading) return <div className="loading">Carregando...</div>;
+
 
   return (
-    <div className='divAmarela-Perfil'>
-      <div className="divMarrom-perfil">
-        <div className="divQualquer2-perfil"></div>
-        <div className="divRosa-Perfil">
-          <div className="divRoxa-perfil">
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '90%', widows: '90%'}}>
-              <div className="avatar">
-                
-                <img className='foto-perfil' src="Test Account.png" alt="Perfil de usuário" />
-              </div>
-            </div>
-            <div className="NomePessoa-Perfil">
-              {editando ? (
-                <input
-                  type="text"
-                  className='NomeIno-perfil'
-                  placeholder='Digite seu nome'
-                  value={dados.nome}
-                  name="nome"
-                  onChange={handleChange}
-                  style={{
-                    fontSize: '31px',
-                    fontWeight: 'bold',
-                    textAlign: 'center',
-                    background: 'transparent',
-                    border: 'none',
-                    outline: 'none',
-                    color: 'white'
-                  }}
-                />
-              ) : (
-                <h1 className='titulo2-perfil'>{dados.nome || 'Nome da Pessoa'}</h1>
-              )}
-            </div>
-          </div>
-        </div>
-        <div className="qualquer3-perfil"></div>
-        <div className="divazul-perfil">
-          <button className='Excluir-perfil' onClick={handleExcluirClick}>Excluir</button>
-          <button className='Sair-perfil' onClick={handleSairClick}>Sair</button>
+    <div className='div-q-inglobaTudo-PerfPostagem'>
+      <div className='Navbar-PerfPostagem'>
+        <button className='arrow-PerfilPostagem' onClick={() => navigate('/postagem')}>
+          <img src="Arrow.png" alt="Voltar" className='arrow-PerfPostagem2' />
+        </button>
+        <div className='editar-perfilPostagem'>
+          <ModalPerfil onProfileUpdate={handleProfileUpdate} />
         </div>
       </div>
 
-      <div className="divVermelha-perfil">
-        <div className="divverde-perfil"></div>
-        <div className="divazulcaro">
-          <div className="divroxaescuro-perfil"></div>
-          <div className="divlaranja-perfil">
-            <div className="nada-perfil"></div>
-            <div className="divverdeescuro-perfil">
-
-              <div className="nome-perfil">
-                <label className='nomeLabel-perfil'>Telefone:</label>
-                <input
-                  type="text"
-                  className='NomeIn-perfil'
-                  placeholder='Ex: (00) 00000-0000'
-                  value={dados.telefone}
-                  name="telefone"
-                  onChange={handleChange}
-                  disabled={!editando}
-                />
-              </div>
-
-              <div className="nome-perfil">
-                <label className='nomeLabel-perfil'>Email:</label>
-                <input
-                  type="text"
-                  className='NomeIn-perfil'
-                  placeholder='Ex: maria@gmail.com'
-                  value={dados.email}
-                  name="email"
-                  onChange={handleChange}
-                  disabled={!editando}
-                />
-              </div>
-
-              <div className="nome-perfil">
-                <label className='nomeLabel-perfil'>Nacionalidade:</label>
-                <input
-                  type="text"
-                  className='NomeIn-perfil'
-                  placeholder='Ex: Brasileira'
-                  value={dados.nacionalidade}
-                  name="nacionalidade"
-                  onChange={handleChange}
-                  disabled={!editando}
-                />
-              </div>
-
-              <div className="nome-perfil">
-                <label className='nomeLabel-perfil'>Idioma:</label>
-                <input
-                  type="text"
-                  className='NomeIn-perfil'
-                  placeholder='Ex: Português'
-                  value={dados.idioma}
-                  name="idioma"
-                  onChange={handleChange}
-                  disabled={!editando}
-                />
-              </div>
-
-              <div className='button2-perfil'>
-                <div className='oimundo-perfil'></div>
-                <div className='divButon-perfil'>
-                  <button className='editar-perfil' onClick={handleEditarClick}>
-                    {editando ? 'Salvar' : 'Editar'}
-                  </button>
-                </div>
-              </div>
-
-            </div>
+      <div className='Conteine-foto-nomeUser-PerfPostagem'>
+        <div className='conteine-da-fotoPerfil-PerfPostagem'>
+          <div 
+            className='fotoPerfil-PerfPostagem'
+            onClick={() => fileInputRef.current.click()}
+            style={user.previewImage ? { 
+              backgroundImage: `url(${user.previewImage})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            } : {}}
+          >
+            {!user.previewImage && (
+              <span style={{ fontSize: '40px', color: '#fff' }}>
+                {user.nome.charAt(0).toUpperCase()}
+              </span>
+            )}
           </div>
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            accept="image/*"
+            style={{ display: 'none' }}
+          />
+        </div>
+
+        <div className='n°-seguidores-seguindo-PerfPostagem'>
+          <div className='stat-item'>
+            <div className='stat-number'>{userPosts.length}</div>
+            <div className='stat-label'>Publicações</div>
+          </div>
+          <div className='stat-item'>
+            <div className='stat-number'>{user.followers}</div>
+            <div className='stat-label'>Seguidores</div>
+          </div>
+          <div className='stat-item'>
+            <div className='stat-number'>{user.following}</div>
+            <div className='stat-label'>Seguindo</div>
+          </div>
+        </div>
+
+        <div className='texto-dos-numeros-PerfPostagem'>
+          <h2>{user.nome}</h2>
+          <p>@{user.email.split('@')[0]}</p>
         </div>
       </div>
 
-      {/* Modal de confirmação */}
-      {showModal && (
-        <div style={modalOverlayStyle}>
-          <div style={modalContentStyle}>
-            <h3>Tem certeza que deseja {acao === 'sair' ? 'sair da conta' : 'excluir sua conta'}?</h3>
-            <div style={{ marginTop: '20px' }}>
-              <button onClick={confirmarAcao} style={buttonStyle}>Sim</button>
-              <button onClick={cancelarAcao} style={buttonStyle}>Não</button>
-            </div>
-          </div>
+      <div className='conteine-da-postagens-PerfPostagem'>
+        <div className='conteine-texto-publicaçoes-PerfPostagem'>
+          <h3>Publicações</h3>
         </div>
-      )}
-
-      {/* Modal de sucesso */}
-      {showSuccessModal && (
-        <div style={modalOverlayStyle}>
-          <div style={modalContentStyle}>
-            <h3>Salvo com sucesso!</h3>
-            <div style={{ marginTop: '20px' }}>
-              <button onClick={() => setShowSuccessModal(false)} style={buttonStyle}>OK</button>
-            </div>
-          </div>
+        <div className='conteine-das-publicaçoes'>
+          {userPosts.length > 0 ? (
+            userPosts.map(post => (
+              <div key={post.id} className="post-container">
+                <img 
+                  src={post.imageUrl} 
+                  alt="Post" 
+                  style={styles.postImage}
+                />
+                <p>{post.caption}</p>
+                <button 
+                  onClick={() => handleDeletePost(post.id)}
+                 style={styles.deleteButton}
+                >
+                  Excluir
+                </button>
+              </div>
+            ))
+          ) : (
+            <p style={{ textAlign: 'center', padding: '20px' }}>
+              Nenhuma publicação ainda
+            </p>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }
-
-// Estilos do modal
-const modalOverlayStyle = {
-  position: 'fixed',
-  top: 0, left: 0,
-  width: '100vw', height: '100vh',
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  zIndex: 9999,
-};
-
-const modalContentStyle = {
-  backgroundColor: '#3B444F',
-  padding: '30px',
-  borderRadius: '8px',
-  boxShadow: '0 2px 10px rgba(0,0,0,0.3)',
-  textAlign: 'center',
-  maxWidth: '400px',
-  width: '90%',
-  color: '#fff'
-};
-
-const buttonStyle = {
-  margin: '10px',
-  padding: '10px 20px',
-  fontSize: '16px',
-  cursor: 'pointer',
-  borderRadius: '20px',
-};
 
 export default Perfil;
