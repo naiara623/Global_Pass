@@ -87,6 +87,11 @@ function BoasVindas() {
                                 <img src="banner_passe.png
                                 " alt="" className='banner_passe-boasvindas' />
                                 </SplideSlide>
+
+                                 <SplideSlide>
+                                <img src="banner_educacao.png
+                                " alt="" className='banner_educacao-boasvindas' />
+                                </SplideSlide>
                             </Splide>
                                                      
                                 
@@ -117,9 +122,9 @@ function BoasVindas() {
                             <img src="youtube-play-icone.png" alt="" className='YouTube'/>
                     </div>
 
-                    <div className="links">
+                    <div className="links-boasvindas">
                             
-                            <h2> (00) 0000-0000</h2> <h2>globalpass.nkl@gmail.com</h2>
+                            <h2 className='numero' > (00) 0000-0000</h2> <h2 className='gmail' >globalpass.nkl@gmail.com</h2>
                     </div>
 
 

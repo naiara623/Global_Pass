@@ -453,11 +453,13 @@ align-items: center;
     justify-content: center;
     align-items: start;
     display: flex;
+    
 }
 
 .inicio-video{
   height: 90%;
   width: 40%;
+
 }
 
 /* comentarios bacanudos */

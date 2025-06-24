@@ -11,13 +11,14 @@ function Saude() {
   const [indiceAtual, setIndiceAtual] = useState(0);
 
   const imagens = [
-   
+   'banner_sus.png',
+   'banner_zegotinha.png',
   ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setIndiceAtual((prev) => (prev + 1) % imagens.length);
-    }, 3000);
+    }, 6000);
 
     return () => clearInterval(timer);
   }, [imagens.length]);
