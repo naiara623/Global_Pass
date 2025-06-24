@@ -31,8 +31,13 @@ function Modal() {
   };
 
   return (
+<<<<<<< HEAD
+    <div className='cor-div'>
+      <button className='modal-button' onClick={toggleModal}> <img className='inicio-modal' src="menu-modal.png" alt="" /></button>
+=======
     <div>
       <button className='modal-button1' onClick={toggleModal}> <img className='inicio-modal' src="menu-modal.png" alt="" /></button>
+>>>>>>> a3b2510e1e81c62d3ada125efe277166aa3e792c
       
       {isOpen && (
         <div className="modal-overlay1">

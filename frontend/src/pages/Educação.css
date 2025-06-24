@@ -1,11 +1,11 @@
 .Amarelo-educação{
      /* border: 4px solid yellow;  */
     height: 330vh;
-    background-color: #EAEAEA;
+    background-color: var(--cor-fundo);
 }
 
 .Vermelho-educação{
-    border: 4px solid rgb(122, 7, 7);
+    /* border: 4px solid rgb(122, 7, 7); */
     /* background-color: #3B444F; */
     height: 2%;
     
@@ -39,7 +39,7 @@
 
 .AzulEscuro-educação{
     /* border: 4px solid darkblue; */
-    background-color: #2D405A;
+    background-color: var(--cor-4-escuro);
     height: 20%;
     width: 100%;
     display: flex;
@@ -96,14 +96,24 @@
     align-items: center;
 }
 
+.mapa-educacao{
+    height: 100%;
+    width: 100%;
+}
+
+.Divmap{
+    height: 100%;
+    width: 100%;
+}
+
 .RosoEscuro-educação{
     /* border: 4px solid darkorchid; */
-    background-color: #3B444F;
+    background-color: var(--cor-4-escuro);
     height: 5%;
 }
 
 .Branco-educação{
-    border: 4px solid rgb(255, 0, 0);
+    /* border: 4px solid rgb(255, 0, 0); */
     height: 100%;
     width: 100%;
     position: relative;
@@ -173,7 +183,7 @@ height: 80%;
 }
 
 .info2-educação{
-    border: 2px solid red;
+    /* border: 2px solid red; */
     height: 100%;
     width: 50%;
     display: flex;
@@ -182,7 +192,7 @@ height: 80%;
     flex-direction: column;
 }
 .tubarão-educação{
-    border: 4px solid black;
+    /* border: 4px solid black; */
     height: 80%;
     width: 80%;
 }
@@ -238,13 +248,13 @@ height: 80%;
 }
 
 .bobesponja2-educação{
-    border: 3px solid red;
+    /* border: 3px solid red; */
     width: 100%;
     height: 100%;
 }
 
 .Titulooi-educação{
-    border: 3px solid pink;
+    /* border: 3px solid pink; */
     height: 20%;
     width: 100%;
     display: flex;
@@ -253,7 +263,7 @@ height: 80%;
 }
 
 .tipos-educação{
-    border: 2px solid yellow;
+    /* border: 2px solid yellow; */
     height: 80%;
     width: 100%;
     display: flex;

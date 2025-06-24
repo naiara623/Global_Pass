@@ -4,7 +4,7 @@ import './CarrosselAu.css';
 const CarrosselEducacao = () => {
   // Nomes dos arquivos (certifique-se que existem na pasta public/images/carrossel)
   const imagens = [
-    'bikes.jpg',
+    'eja.png',
     'buss.jpg',
     'varios.jpg',
     'patinetes.jpg'

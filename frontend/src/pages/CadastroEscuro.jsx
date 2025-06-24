@@ -109,9 +109,16 @@ function CadastroEscuro() {
     navigate('/telainicial');
   };
 
-  const renderErro = (campo) => mensagemErro[campo] && (
-    <p style={{ color: 'red', marginTop: '-6%', fontSize: '0.85rem' }}>{mensagemErro[campo]}</p>
-  );
+ const renderErro = (campo, estiloPersonalizado = {}) => mensagemErro[campo] && (
+  <p style={{ 
+    color: 'red', 
+    fontSize: '0.85rem',
+    marginTop: campo === 'senha' ? '9px' : '-5%', // Aplica margem maior apenas para senha
+    ...estiloPersonalizado // Permite sobrescrever estilos específicos
+  }}>
+    {mensagemErro[campo]}
+  </p>
+);
 
   return (
     <div className='amarela-Cadastro'>
@@ -158,31 +165,31 @@ function CadastroEscuro() {
               </div>
 
 
-              <div className="nome-Cadastro">
-                <label className='nomeLabel-Cadastro'>Senha:</label>
-                <input
-                  type={showSenha ? "text" : "password"}
-                  className='NomeIn-Cadastro'
-                  placeholder='Ex:1234'
-                  value={senha}
-                  onChange={(e) => setSenha(e.target.value)}
-                />
-                <img
-                  src={showSenha ? "/SenhaVisivel.png" : "/SenhaInvisivel.png"}
-                  alt="Toggle senha"
-                  className='imgSenha-Cadastro'
-                  onClick={() => setShowSenha(!showSenha)}
-                  style={{ cursor: 'pointer' }}
-                />
-                <div className="Erros">{renderErro('senha')}</div>
-              </div>
+<div className="nome-Cadastro">
+  <label className='nomeLabel-Cadastro'>Senha:</label>
+  <input
+    type={showSenha ? "text" : "password"}
+    className='NomeIn-Cadastro'
+    placeholder='Ex:123456'
+    value={senha}
+    onChange={(e) => setSenha(e.target.value)}
+  />
+  <img
+    src={showSenha ? "/SenhaVisivel.png" : "/SenhaInvisivel.png"}
+    alt="Toggle senha"
+    className='imgSenha-Cadastro'
+    onClick={() => setShowSenha(!showSenha)}
+    style={{ cursor: 'pointer' }}
+  />
+  {renderErro('senha', { marginTop: '-40px' })}
+</div>
 
               <div className="nome-Cadastro">
                 <label className='nomeLabel-Cadastro'>Confirma senha:</label>
                 <input
                   type={showConfirmaSenha ? "text" : "password"}
                   className='NomeIn-Cadastro'
-                  placeholder='Ex:1234'
+                  placeholder='Ex:123456'
                   value={confirmaSenha}
                   onChange={(e) => setConfirmaSenha(e.target.value)}
                 />
@@ -217,7 +224,7 @@ function CadastroEscuro() {
                   <span>Li e concordo com os termos de uso</span>
                 </label>
               </div>
-              {renderErro('termos')}
+              {renderErro('termos', { marginTop: '80px', border: '1px solid' })}
             </div>
 
             <div className="DivDoOutroLado-Cadastro">

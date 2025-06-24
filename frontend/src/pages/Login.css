@@ -1,5 +1,5 @@
 .divAmarela-Login{
-    background-color: #EAEAEA;
+    background-color: var(--cor-fundo);
     height: 100vh;
     display: flex;
 }
@@ -25,12 +25,12 @@
 }
 
 .divMarron-Login{
-    background-color: #3B444F;
+    background-color: var(--cor-2-escuro);
     width: 25%;
 }
 
 .divMarronEscuro-Login{
-    background-color: #545D69;
+    background-color: var(--cor-1-claro);
     width: 15%;
 }
 
@@ -42,7 +42,7 @@
 
 .divPerta-Login{
     /* border: 2px solid red; */
-    background-color: #3B444F;
+    background-color: var(--cor-1-escuro);
     height: 20%;
     width: 100%;
     display: flex;
@@ -55,7 +55,7 @@
 
 .divRosaEscuro-Login{
     /* border: 2px solid pink; */
-    background-color: #3B444F;
+    background-color: var(--cor-1-escuro);
     height: 60%;
     display: flex;
     flex-direction: column; /* Um embaixo do outro */
@@ -72,7 +72,7 @@
 } */
 .divPreta-Login{
     /* border: 2px solid blue; */
-    background-color: #3B444F;
+    background-color: var(--cor-1-escuro);
     height: 20%;
     width: 100%;
     border-radius:0 0 20px 20px ;
