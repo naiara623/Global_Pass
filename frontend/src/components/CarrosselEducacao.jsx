@@ -4,10 +4,9 @@ import './CarrosselAu.css';
 const CarrosselEducacao = () => {
   // Nomes dos arquivos (certifique-se que existem na pasta public/images/carrossel)
   const imagens = [
-    'eja.png',
-    'buss.jpg',
-    'varios.jpg',
-    'patinetes.jpg'
+    'banner_Enem.png',
+    'banner_encceja.png',
+    'banner_eja.png'
   ];
 
   const [indiceAtual, setIndiceAtual] = useState(0);
@@ -37,6 +36,7 @@ const CarrosselEducacao = () => {
             <img 
               src={`/images/carrossel/${imagem}`} 
               alt={`Slide ${index + 1}`}
+              className='carrossel-imagem'
               onError={(e) => {
                 console.error('Erro ao carregar imagem:', e.target.src);
                 e.target.style.display = 'none';

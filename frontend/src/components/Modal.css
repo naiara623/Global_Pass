@@ -17,14 +17,8 @@
   }
   
   /* Estilo do modal em si */
-<<<<<<< HEAD
-  .modal {
-   
-    background-color:var(--cor-1-escuro);
-=======
   .modal1 {
     background-color:var(--cor-2-escuro);
->>>>>>> a3b2510e1e81c62d3ada125efe277166aa3e792c
     display: inline;
     justify-content: center;
     align-items: start;

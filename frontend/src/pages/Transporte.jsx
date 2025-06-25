@@ -208,7 +208,7 @@ function Transporte() {
 
 <div className='transporte-texto-img'>
 <div className='transporte-texto'> 
-<img className='img' src="BusBus2.png" alt="" />
+<img className='img' src="banner_Transporte.png" alt="Transportes" />
 </div>
 </div>
 
