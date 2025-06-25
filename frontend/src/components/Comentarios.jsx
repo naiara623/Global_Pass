@@ -7,7 +7,7 @@ const comentariosFixos = [
   { usuario: "Usuario1", texto: "Isso é muito interessante!", tempo: "5 min" },
   { usuario: "Usuario2", texto: "Adorei essa funcionalidade!", tempo: "15 min" },
   { usuario: "Usuario3", texto: "Alguém mais notou isso?", tempo: "30 min" },
-  { usuario: "Usuario5", texto: "bla bla bla bla bla bla bla bla", tempo: "45 min" }
+  { usuario: "Usuario5", texto: "Isso me ajudou bastante", tempo: "45 min" }
 ];
 
 const Comentarios = ({ comentariosExtras = [], onResponder }) => {

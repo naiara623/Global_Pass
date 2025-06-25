@@ -44,7 +44,7 @@ const ExpandableSection = ({ title, children }) => {
     const botoesInfo = [
         {
             id: 'onibus',
-            label: 'ensino fundamental',
+            label: 'fundamental',
             imagem: ABC,
             conteudo: (
               <div className='info-arruma'>
@@ -206,21 +206,12 @@ const ExpandableSection = ({ title, children }) => {
        <div className='Rosa-educação'>
         <div className='Azul-educação'>
 
-            <div className='sla2-educação'>
-            <h1 className='Titulo1-educação'>Educação: Do Básico ao Avançado</h1>
-            </div>
-             
-            <div className='sla-educação'>
-                  <img className='arvore-educação' src="Arvore.png" alt="Arvore dos alunos" /> 
-            </div>
+           <CarrosselEducacao  />
            
         </div>
        </div>
 
          <div className='AzulEscuro-educação'>
-            <div className='Cinza-educação'>
-<CarrosselEducacao  />
-            </div>
          </div>
 
          <div className='Vermelha2-educação'>
