@@ -141,13 +141,7 @@ function Saude() {
 
         <div className="conteine-desing-saude">
             <div className="azul-saude">
-              <img src="design.png" alt="" className='design-png' />
-            </div>
-        </div> 
-
-            <div className="conteine-propagandas-saude">
-                <div className="marrom-propaganda-saude">
-                <div className="carrossel-container">
+              <div className="carrossel-container">
       <div className="carrossel-track" 
            style={{ transform: `translateX(-${indiceAtual * 100}%)` }}>
         {imagens.map((imagem, index) => (
@@ -176,14 +170,18 @@ function Saude() {
       </div>
     </div>
 
-                </div>
+
+
             </div>
+        </div> 
+
+            <div className="conteine-propagandas-saude"></div>
 
                 <div className="conteine-icones-telao">
                     <div className="conteine-do-canto-esquerdo-saude">
-
-                            <div className="vacinas-saude">
-                                    {botoesInfo.map((botao) => (
+                      <div className='arrumar-butao'>
+                        <div className='alguma-coisa-saude'>
+                                        {botoesInfo.map((botao) => (
                     <button
                         key={botao.id}
                         className={`info-button ${infoAtiva === botao.id ? 'ativo' : ''}`}
@@ -192,13 +190,10 @@ function Saude() {
                         <img src={botao.imagem} alt={botao.label} className="botao-imagem" />
                         <span className='span-oi'>{botao.label}</span>
                     </button>
-                ))}
-                            </div>
-
-                            <div className="ajuda-medica-saude"></div>
-                            
-                            <div className="farmacia-saude"></div>
-
+                ))}  
+                        </div>
+                      </div>
+                    
                     </div>
 
                     <div className='Cinza2-educação'>
