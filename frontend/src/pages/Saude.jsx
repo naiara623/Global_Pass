@@ -71,25 +71,49 @@ function Saude() {
               conteudo: (
                 <div className='info-arruma'>
                   <div className='scrollable-container'>
-                    <h3 className='tituloFundamental-educação'>Ensino Fundamental</h3>
+                    <h3 className='tituloFundamental-educação'>O que é o SUS?</h3>
   
-                    <p className='pInformativo-educação'>O Ensino Fundamental é uma etapa obrigatoria da educação basica no brasil, destinada a crianças de 6 a 14 anos, com duração de 9 anos</p>
-                        <ExpandableSection title="1. Duração">
+                    <p className='pInformativo-educação'>O SUS (Sistema Único de Saúde) é o sistema público de saúde do Brasil. Ele é financiado pelos impostos e mantido pelo governo para garantir que todas as pessoas, sem exceção, tenham acesso à saúde de forma gratuita.</p>
+                        <ExpandableSection title="O que o SUS oferece?">
                           <ul>
-                            <li><h4>Anos Inicias</h4> 1º ao 5º ano</li>
-                            <li><h4>Anos Final</h4> 6º ao 9º ano</li>
+
+                            <li><h4>🩺 Consultas médicas</h4> Clínico geral, pediatra, ginecologista, dentista e outros especialistas. <br />Marcação feita nos postos de saúde (UBS/ESF). </li>
+                            <li><h4>💉 Vacinas</h4> Para crianças, adolescentes, adultos e idosos. <br />Inclui vacinas obrigatórias, como febre amarela, tétano, hepatite, gripe, COVID-19 etc. </li>
+                             <li><h4>🧪 Exames laboratoriais e de imagem</h4> Exames de sangue, urina, raio-X, mamografia, ultrassom e outros.  </li>
+                             <li><h4>🤰 Pré-natal e parto humanizado</h4>Acompanhamento completo para grávidas. <br />Direitos garantidos mesmo sem documentos ou residência fixa. </li>
+                            <li><h4>🏥 Atendimento de emergência</h4>Em caso de urgência (acidentes, dores fortes, febre alta), vá para a UPA ou hospital público mais próximo.  </li>
+                             <li><h4>💊 Medicamentos gratuitos</h4> Muitos remédios podem ser retirados nos postos de saúde com receita médica, especialmente para doenças crônicas como diabetes e hipertensão. </li>
+                              <li><h4>🧠 Saúde mental</h4> Atendimento psicológico e psiquiátrico. <br />CAPS (Centros de Atenção Psicossocial) para apoio em casos mais graves.</li>
                           </ul>
+
                         </ExpandableSection>
   
-                        <ExpandableSection title="2. Materias">
+                        <ExpandableSection title="Quem pode usar o SUS?">
                           <ul>
-                            <li><h4>Anos Inicias</h4> Portugues, Matemática, Ciências, Histórias, Geografia, Artes, Educação Física e Ingles (em algumas escolas)</li>
-                            <li><h4>Anos Final</h4> Portugues, Matemática, Ciências, Histórias, Geografia, Artes, Educação Física, Ingles e Ensino Religioso (em algumas escolas)</li>
+                            <li><h4>São eles:</h4> - Imigrantes com ou sem visto. <br /> Refugiados. <br /> Pessoas em situação de rua. <br /> Indocumentados (sem CPF ou sem comprovante de residência).</li>
                           </ul>
                         </ExpandableSection>
-  
+
+                        
+                        <ExpandableSection title="Onde ir para ser atendido?">
+                          <ul>
+                            <li><h4>São eles:</h4>UPAs (Unidades de Pronto Atendimento): para emergências. <br /> Postos de saúde (UBS/ESF): para consultas, vacinas, pré-natal e acompanhamento geral. <br /> Hospitais públicos: para casos graves ou cirurgias. <br /> Você pode procurar o posto mais próximo da sua casa.</li>
+                          </ul>
+                        </ExpandableSection>
+
+                        
+                        <ExpandableSection title="O que levar no primeiro atendimento?">
+                          <ul>
+                            <li><h4>São eles:</h4> Documento de identidade (passaporte, RNE, carteira de refugiado, etc.). <br /> Comprovante de residência (se tiver). <br />CPF (opcional). <br />Cartão do SUS (caso já tenha um). <br /> Atenção: Mesmo sem documentos, o atendimento deve ser realizado. Mas, se tiver, leve.</li>
+                          </ul>
+                        </ExpandableSection>
+
+                      
                         <h3>Objetivos</h3>
-                        <p>Promover a alfabetização, o pensamento critico, e a preparação para o ensino médio, alem do desenvolvimento da cidadania</p>
+                        <p>Cuidar da sua saúde é um direito fundamental, não importa de onde você vem, quais documentos você tem ou como chegou até aqui. O SUS existe para garantir que todas as pessoas — brasileiras ou imigrantes — sejam acolhidas com dignidade, respeito e acesso a cuidados de saúde gratuitos. Em Florianópolis, você não está sozinho: há um sistema preparado para caminhar com você desde o início da sua nova vida. Sua saúde importa, e você tem com quem contar.
+</p>
+  
+
                   </div>
                   </div>
               )
@@ -101,24 +125,20 @@ function Saude() {
               conteudo: (
                  <div className='info-arruma'>
                   <div className='scrollable-container'>
-                    <h3 className='tituloFundamental-educação'>Ensino Médio</h3>
   
-                    <p className='pInformativo-educação'>Última etapa da educação básica, geralmente dos 15 aos 17 anos.
-                             Tem duração de 3 anos e aprofunda os conhecimentos do Ensino Fundamental.</p>
-                        <ExpandableSection title="1. Duração">
-                          <ul>
-                            <li>3 anos (1º, 2º e 3º anos)</li>
-                          </ul>
-                        </ExpandableSection>
-  
-                        <ExpandableSection title="2. Materias">
-                          <ul>
-                            <li> Portugues, Matemática, Biologia, Histórias, Geografia, Artes, Educação Física, Ingles, Espanhol, Filosofia, Sociologia e Quimica </li>
-                          </ul>
-                        </ExpandableSection>
-  
-                        <h3>Objetivos</h3>
-                        <p>Preparar o estudante para a vida adulta, faculdade e mercado de trabalho, desenvolvendo a autonomia e aprofundando os conhecimentos adquiridos no Ensino Fundamental.</p>
+                     <h3 className='tituloFundamental-educação'>✅ "Sempre busque deixar a sua caderneta de vacinação atualizada."</h3>
+                          <p>Procure o posto de saúde mais próximo da sua casa. </p>
+    
+                        <h2>  Vacinas Disponiveis na rede publica</h2>
+
+                        <h3> Influenza (gripe)</h3>
+                        <ul><li>Disponível para toda a população acima de 6 meses, sem restrições de idade. São aplicadas versões trivalente (H1N1, H3N2 e Influenza B).</li></ul>
+
+                        <h3>Pontos de aplicação:</h3>
+                        <ul><li>Postos de saúde das 7h às 17h (exceto Costa da Lagoa e Vila Aparecida) até 9 de maio..</li></ul>
+                        <ul><li>No “Dia D” (10 de maio), 30 locais, van da vacinação, Espaço Imuniza, Sesc Prainha </li></ul>
+
+
                   </div>
                   </div>
               )
