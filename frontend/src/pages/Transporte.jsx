@@ -40,7 +40,12 @@ function Transporte() {
 
 
 
-    const imagens = [];
+    const imagens = [
+
+      'banner_paaseioPatinete.png',
+      'Banner_Nao_sabePasse.png',
+      'Banner_doPasse.png',
+    ];
 
     const [infoAtiva, setInfoAtiva] = useState(null);
     
@@ -207,17 +212,15 @@ function Transporte() {
  <Navbar/>
 
 <div className='transporte-texto-img'>
+
 <div className='transporte-texto'> 
-<img className='img' src="banner_Transporte.png" alt="Transportes" />
-</div>
-</div>
-
-<div className='transporte-quadrado1'>
-
-<div className='quadrado-vermelho-arrumado'>
 <CarrosselAutomatico imagens={imagens} intervalo={5000} />
+
 </div>
+
 </div>
+
+    <div className='transporte-quadrado1'></div>
 
 <div className='transporte-asunto'>
 
@@ -250,8 +253,9 @@ function Transporte() {
 </div>
 
 <div className='transporte-map'>
-  <div className='map'></div>
+  <div className='map'><iframe src="https://www.google.com/maps/d/u/0/embed?mid=1AA2CbySA7ec4GXnlUCSFrERLP4UJb1w&ehbc=2E312F&noprof=1" width="640" height="480" className='google-mapa' ></iframe></div>
 </div>
+
 
 <div className='transporte-roda-pe'>
 
