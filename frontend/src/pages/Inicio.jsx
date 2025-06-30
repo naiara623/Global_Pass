@@ -359,7 +359,7 @@ frutos do mar</p>
 
 <div className='inicio-rodape-baixo1'>
 <div></div>
-<div className='inicio-fale-conosco'><img className='inicio-icone-função' src="Maintenance.png" alt="" /></div>
+
 <div className='inicio-telefone'><p className='inicio-palavras-pequenas'> (00) 0000-0000</p></div>
 <div className='inicio-email'>   <p className='inicio-palavras-pequenas'>globalpass@gmail.com.br</p></div>
 <div></div>

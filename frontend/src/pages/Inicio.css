@@ -691,6 +691,11 @@ width: 15%;
 display: flex;
 align-items: center;
 justify-content: center;
+ color: #E4E7EB;
+    font-family: "Inter Tight", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style:normal;
 }
 .inicio-email{
   /* border: 2px solid blue; */
@@ -703,13 +708,12 @@ justify-content: center;
 
 .inicio-palavras-pequenas{
   font-size: 20px;
-  color: white;
-  font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
+  color: #E4E7EB;
+    font-family: "Inter Tight", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style:normal;
+    
 }
 
 
