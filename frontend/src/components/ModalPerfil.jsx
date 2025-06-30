@@ -2,63 +2,62 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ModalPerfil.css';
 
-function ModalPerfil({ onProfileUpdate }) {
+function ModalPerfil({  usuario, onProfileUpdate }) {
   const navigate = useNavigate();
-  const [dados, setDados] = useState({
-    nome: '',
-    telefone: '',
-    nacionalidade: '',
-    idioma: '',
-    email: ''
+ const [dados, setDados] = useState({
+    nome: usuario?.nome || '',
+    telefone: usuario?.telefone || '',
+    nacionalidade: usuario?.nacionalidade || '',
+    idioma: usuario?.idioma || '',
+    email: usuario?.email || '',
   });
-
- const [editando, setEditando] = useState(false);
+  const [editando, setEditando] = useState(false);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [acao, setAcao] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    const carregarDadosUsuario = async () => {
+  const carregarDadosUsuario = async () => {
+    const emailSalvo = localStorage.getItem("email");
+if (!usuario || !usuario.email) {
+  setError("Usuário não carregado");
+  return;
+}
+
+    try {
+     const res = await fetch(`http://localhost:3001/api/usuario-atual`, {
+  credentials: 'include',
+  headers: { 'Content-Type': 'application/json' },
+});
+console.log('STATUS:', res.status);
+      const userData = await res.json();
+      setDados({
+        nome: userData.nome || '',
+        telefone: userData.telefone || '',
+        nacionalidade: userData.nacionalidade || '',
+        idioma: userData.idioma || '',
+        email: userData.email || '',
+      });
+    } catch (err) {
+      setError('Erro ao carregar dados.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const toggleModal = () => {
+    const novoEstado = !isOpen;
+    setIsOpen(novoEstado);
+    if (!isOpen) {
       setLoading(true);
       setError('');
-      try {
-        const response = await fetch('http://localhost:3001/api/usuario-atual', {
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        
-        if (!response.ok) {
-          if (response.status === 401) {
-            navigate('/login');
-            return;
-          }
-          throw new Error('Erro ao carregar dados do usuário');
-        }
-        
-        const userData = await response.json();
-        setDados({
-          nome: userData.nome || '',
-          telefone: userData.telefone || '',
-          nacionalidade: userData.nacionalidade || '',
-          idioma: userData.idioma || '',
-          email: userData.email || ''
-        });
-      } catch (err) {
-        console.error('Erro ao carregar dados:', err);
-        setError('Falha ao carregar perfil. Tente novamente.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (isOpen) {
       carregarDadosUsuario();
+    } else {
+      setEditando(false);
+      setError('');
     }
-  }, [isOpen, navigate]);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,32 +71,21 @@ function ModalPerfil({ onProfileUpdate }) {
       try {
         const response = await fetch(`http://localhost:3001/api/usuarios/${encodeURIComponent(dados.email)}`, {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
-          body: JSON.stringify({
-            nome: dados.nome,
-            telefone: dados.telefone,
-            nacionalidade: dados.nacionalidade,
-            idioma: dados.idioma
+          body: JSON.stringify({ 
+            nome: dados.nome, 
+            telefone: dados.telefone, 
+            nacionalidade: dados.nacionalidade, 
+            idioma: dados.idioma 
           })
         });
-
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.erro || 'Erro ao atualizar perfil');
-        }
-
+        if (!response.ok) throw new Error('Erro ao atualizar perfil');
         const updatedData = await response.json();
         setDados(prev => ({ ...prev, ...updatedData }));
         setEditando(false);
-        
-        if (onProfileUpdate) {
-          onProfileUpdate(updatedData);
-        }
+        onProfileUpdate && onProfileUpdate(updatedData);
       } catch (err) {
-        console.error("Erro na atualização:", err);
         setError(err.message || 'Erro ao atualizar perfil');
       } finally {
         setLoading(false);
@@ -121,32 +109,23 @@ function ModalPerfil({ onProfileUpdate }) {
     setLoading(true);
     try {
       if (acao === 'sair') {
-        const response = await fetch('http://localhost:3001/api/logout', {
-          method: 'POST',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+        await fetch('http://localhost:3001/api/logout', { 
+          method: 'POST', 
+          credentials: 'include', 
+          headers: { 'Content-Type': 'application/json' } 
         });
-
-        if (!response.ok) throw new Error('Erro ao fazer logout');
-        
+        localStorage.removeItem("email");
         navigate('/login');
       } else if (acao === 'excluir') {
-        const response = await fetch(`http://localhost:3001/api/usuarios/${encodeURIComponent(dados.email)}`, {
-          method: 'DELETE',
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+        await fetch(`http://localhost:3001/api/usuarios/${encodeURIComponent(dados.email)}`, { 
+          method: 'DELETE', 
+          credentials: 'include', 
+          headers: { 'Content-Type': 'application/json' } 
         });
-
-        if (!response.ok) throw new Error('Erro ao excluir conta');
-        
+        localStorage.removeItem("email");
         navigate('/login');
       }
     } catch (err) {
-      console.error("Erro ao executar ação:", err);
       setError(`Erro: ${err.message}`);
     } finally {
       setLoading(false);
@@ -159,14 +138,6 @@ function ModalPerfil({ onProfileUpdate }) {
   const cancelarAcao = () => {
     setShowConfirmationModal(false);
     setAcao('');
-  };
-
-  const toggleModal = () => {
-    setIsOpen(!isOpen);
-    if (isOpen) {
-      setEditando(false);
-      setError('');
-    }
   };
 
   return (
@@ -188,7 +159,7 @@ function ModalPerfil({ onProfileUpdate }) {
                 <h1 className='titulo1-modal'>Melhore o seu perfil</h1>
               </div>
 
-             {loading && !showConfirmationModal && <p className="loading-message">Carregando...</p>}
+              {loading && !showConfirmationModal && <p className="loading-message">Carregando...</p>}
               {error && <p className="error-message">{error}</p>}
 
               <div className='InfoUsuarios-modal'>
@@ -197,7 +168,7 @@ function ModalPerfil({ onProfileUpdate }) {
                   name="nome"
                   className='InpuTNomeUsuario-modal' 
                   placeholder='Nome de usuário' 
-                    value={dados.nome}
+                  value={dados.nome}
                   onChange={handleChange}
                   readOnly={!editando}
                 />
@@ -206,7 +177,7 @@ function ModalPerfil({ onProfileUpdate }) {
                   name="nacionalidade"
                   className='InpuTNomeUsuario-modal' 
                   placeholder='Nacionalidade' 
-                value={dados.nacionalidade}
+                  value={dados.nacionalidade}
                   onChange={handleChange}
                   readOnly={!editando}
                 />
@@ -224,7 +195,7 @@ function ModalPerfil({ onProfileUpdate }) {
                   name="telefone"
                   className='InpuTNomeUsuario-modal' 
                   placeholder='Telefone' 
-                   value={dados.telefone}
+                  value={dados.telefone}
                   onChange={handleChange}
                   readOnly={!editando}
                 />
@@ -234,7 +205,7 @@ function ModalPerfil({ onProfileUpdate }) {
 
               <div className='InfoUsuarios-modal2'>
                 <button className='Editar_modal' onClick={handleEditarClick} disabled={loading}>
-             {editando ? (loading ? 'Salvando...' : 'Salvar') : 'Editar conta'}
+                  {editando ? (loading ? 'Salvando...' : 'Salvar') : 'Editar conta'}
                 </button>
                 <button className='Editar_modal' onClick={handleSairClick} disabled={loading}>
                   Sair da conta
@@ -248,7 +219,6 @@ function ModalPerfil({ onProfileUpdate }) {
         </div>
       )}
 
-      {/* Modal de confirmação */}
       {showConfirmationModal && (
         <div className="modal-overlay">
           <div className="confirmation-modal">
@@ -258,10 +228,11 @@ function ModalPerfil({ onProfileUpdate }) {
                 ? 'Tem certeza que deseja sair da sua conta?' 
                 : 'Tem certeza que deseja excluir sua conta? Esta ação não pode ser desfeita.'}
             </p>
-             {error && <p className="error-message">{error}</p>}
+            {error && <p className="error-message">{error}</p>}
             <div className="confirmation-buttons">
-              <button onClick={confirmarAcao} disabled={loading}>                {loading ? 'Processando...' : 'Sim'}
-</button>
+              <button onClick={confirmarAcao} disabled={loading}>
+                {loading ? 'Processando...' : 'Sim'}
+              </button>
               <button onClick={cancelarAcao} disabled={loading}>Cancelar</button>
             </div>
           </div>
@@ -271,4 +242,4 @@ function ModalPerfil({ onProfileUpdate }) {
   );
 }
 
-export default ModalPerfil;
+export default ModalPerfil;

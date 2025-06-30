@@ -4,7 +4,7 @@ import './Perfil.css';
 import ModalPerfil from '../components/ModalPerfil';
 
 function Perfil() {
-  const navigate = useNavigate();
+ const navigate = useNavigate();
   const fileInputRef = useRef(null);
   const [user, setUser] = useState({
     nome: 'Carregando...',
@@ -18,35 +18,25 @@ function Perfil() {
   const [userPosts, setUserPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Busca os dados do usuário ao carregar o componente
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchUserEmail = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/usuario-atual', {
-         
-          
+        const response = await fetch(`http://localhost:3001/api/usuario-atual?email=${user.email}`, {
           credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
         });
-         console.log("response =======>>>>> ", response);
-        if (!response.ok) {
-          // if (response.status === 401) {
-          //   navigate('/login');
-          //   return;
-          // }
-          throw new Error('Erro ao carregar dados');
-        }
-        
+
+        if (!response.ok) throw new Error('Erro ao carregar dados');
         const userData = await response.json();
-        setUser({
-          ...userData,
-          previewImage: userData.profileImage || null,
-        });
-      } catch (error) {
-        console.error("Erro ao buscar dados:", error);
-        if (error.message.includes('Não autenticado')) {
+        setUser(prev => ({
+          ...prev,
+          email: userData.email,
+          nome: userData.nome || 'Usuário',
+          previewImage: userData.profile_image || null,
+        }));
+      } catch (err) {
+        console.error("Erro ao buscar dados:", err);
+        if (err.message.includes('Não autenticado')) {
           navigate('/login');
         }
       } finally {
@@ -54,22 +44,19 @@ function Perfil() {
       }
     };
 
-    fetchUserData();
+    fetchUserEmail();
   }, [navigate]);
 
-  // Atualiza os posts do usuário
   useEffect(() => {
     const fetchUserPosts = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/posts-do-usuario', {
+        const response = await fetch(`http://localhost:3001/api/posts-do-usuario?email=${encodeURIComponent(user.email)}`, {
           credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
+          headers: { 'Content-Type': 'application/json' },
         });
-        
+
         if (!response.ok) throw new Error('Erro ao buscar posts');
-        
+
         const posts = await response.json();
         setUserPosts(posts);
         setUser(prev => ({ ...prev, posts: posts.length }));
@@ -78,10 +65,11 @@ function Perfil() {
       }
     };
 
-    fetchUserPosts();
-  }, []);
+  if (user.email && user.email !== '') {
+  fetchUserPosts();
+}
+  }, [user.email]);
 
-  // Atualiza o perfil quando o ModalPerfil faz mudanças
   const handleProfileUpdate = (updatedData) => {
     setUser(prev => ({
       ...prev,
@@ -92,13 +80,12 @@ function Perfil() {
     }));
   };
 
-  // Upload de nova imagem de perfil
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     const formData = new FormData();
-    formData.append('profileImage', file);
+   formData.append('profileImage', file);
 
     try {
       const response = await fetch('http://localhost:3001/api/upload-profile-image', {
@@ -106,11 +93,11 @@ function Perfil() {
         credentials: 'include',
         body: formData,
       });
-      
+
       if (!response.ok) throw new Error('Erro ao fazer upload');
-      
+
       const { imageUrl } = await response.json();
-      
+
       setUser(prev => ({
         ...prev,
         profileImage: imageUrl,
@@ -121,19 +108,16 @@ function Perfil() {
     }
   };
 
-  // Função para deletar post
   const handleDeletePost = async (postId) => {
     try {
       const response = await fetch(`http://localhost:3001/api/posts/${postId}`, {
         method: 'DELETE',
         credentials: 'include',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
-      
+
       if (!response.ok) throw new Error('Erro ao deletar post');
-      
+
       setUserPosts(prev => prev.filter(post => post.id !== postId));
       setUser(prev => ({ ...prev, posts: prev.posts - 1 }));
     } catch (error) {
@@ -141,25 +125,7 @@ function Perfil() {
     }
   };
 
-  // Estilos inline
-  const styles = {
-    initialLetter: { fontSize: '40px', color: '#fff' },
-    postImage: { width: '100%', borderRadius: '8px' },
-    deleteButton: { 
-      position: 'absolute', 
-      top: '10px', 
-      right: '10px', 
-      background: 'red', 
-      color: 'white', 
-      border: 'none', 
-      borderRadius: '4px', 
-      padding: '5px 10px', 
-      cursor: 'pointer' 
-    },
-  };
-
   if (loading) return <div className="loading">Carregando...</div>;
-
 
   return (
     <div className='div-q-inglobaTudo-PerfPostagem'>
@@ -168,7 +134,7 @@ function Perfil() {
           <img src="Arrow.png" alt="Voltar" className='arrow-PerfPostagem2' />
         </button>
         <div className='editar-perfilPostagem'>
-          <ModalPerfil onProfileUpdate={handleProfileUpdate} />
+      <ModalPerfil usuario={user} onProfileUpdate={handleProfileUpdate} />
         </div>
       </div>
 
@@ -176,12 +142,12 @@ function Perfil() {
         <div className='conteine-da-fotoPerfil-PerfPostagem'>
           <div 
             className='fotoPerfil-PerfPostagem'
-            onClick={() => fileInputRef.current.click()}
-            style={user.previewImage ? { 
-              backgroundImage: `url(${user.previewImage})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            } : {}}
+             onClick={() => fileInputRef.current.click()}
+             style={user.previewImage ? { 
+             backgroundImage: `url(http://localhost:3001${user.previewImage})`,
+             backgroundSize: 'cover',
+             backgroundPosition: 'center',
+  } : {}}
           >
             {!user.previewImage && (
               <span style={{ fontSize: '40px', color: '#fff' }}>
@@ -224,19 +190,28 @@ function Perfil() {
           <h3>Publicações</h3>
         </div>
         <div className='conteine-das-publicaçoes'>
-          {userPosts.length > 0 ? (
+         {userPosts.length > 0 ? (
             userPosts.map(post => (
               <div key={post.id} className="post-container">
-                <img 
-                  src={post.imageUrl} 
-                  alt="Post" 
-                  style={styles.postImage}
-                />
+             <img 
+  src={`http://localhost:3001${post.imageUrl}`} 
+  alt="Post" 
+  style={{ width: '100%', borderRadius: '8px' }}
+/>
                 <p>{post.caption}</p>
                 <button 
                   onClick={() => handleDeletePost(post.id)}
-                 style={styles.deleteButton}
-                >
+                  style={{ 
+                    position: 'absolute', 
+                    top: '10px', 
+                    right: '10px', 
+                    background: 'red', 
+                    color: 'white', 
+                    border: 'none', 
+                    borderRadius: '4px', 
+                    padding: '5px 10px', 
+                    cursor: 'pointer' 
+                  }}>
                   Excluir
                 </button>
               </div>

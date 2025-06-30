@@ -43,6 +43,7 @@ function LoginClaro() {
     try {
       const response = await fetch('http://localhost:3001/api/login', {
         method: 'POST',
+          credentials: "include", // <-- ESSENCIAL
         headers: { 
           'Content-Type': 'application/json',
         },
