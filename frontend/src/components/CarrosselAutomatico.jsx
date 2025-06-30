@@ -4,10 +4,9 @@ import './CarrosselAu.css';
 const CarrosselAutomatico = () => {
   // Nomes dos arquivos (certifique-se que existem na pasta public/images/carrossel)
   const imagens = [
-    'bikes.jpg',
-    'buss.jpg',
-    'varios.jpg',
-    'patinetes.jpg'
+     'banner_paaseioPatinete.png',
+      'Banner_Nao_sabePasse.png',
+      'Banner_doPasse.png',
   ];
 
   const [indiceAtual, setIndiceAtual] = useState(0);
