@@ -1,44 +1,66 @@
-# GlobalPass
+# 🌍 GlobalPass
 
-  O GlobalPass é um site dedicado a imigrantes e emigrantes, oferecendo informações essenciais para quem está mudando de país. Com um design intuitivo e acessível, o site fornece guias sobre saúde, educação e transportes, além de uma comunidade interativa onde usuários podem compartilhar experiências e receber suporte.
-  Nosso objetivo é facilitar a adaptação e integração dos migrantes, conectando culturas e promovendo uma transição mais tranquila para a nova jornada.
-  Site para ajudar imigrantes ou emigrantes em um novo pais 
+ GlobalPass é uma plataforma dedicada a apoiar imigrantes e emigrantes em sua jornada de adaptação a um novo país. Nosso objetivo é fornecer informações confiáveis, acessíveis e essenciais sobre aspectos importantes da vida em outro país, como saúde, educação e transporte.
 
+# 🎯Objetivo
 
-# Integrantes
-https://github.com/naiara623?tab=repositories
+Facilitar a adaptação e integração de imigrantes e emigrantes, promovendo a conexão entre culturas e oferecendo suporte durante sua jornada em um novo país.
 
-https://github.com/LauraMelek2008?tab=repositories
+# 👥Integrantes
+[Naiara Rodrigues](https://github.com/naiara623?tab=repositories)
 
-https://github.com/Kayllany04?tab=repositories
+[Kayllany Ketylly](https://github.com/Kayllany04?tab=repositories)
 
-# Prototipo de telas (Boas Vindas,Cadastro e Login)
+[Laura Melek](https://github.com/LauraMelek2008?tab=repositories)
 
-![Boas Vindas](image-3.png)
+# 🖥️Prototipo de telas
 
-![Cadastro](image-1.png)
-
-![Login](image-2.png)
-
-# Figma
-
-[Figma](https://www.figma.com/design/FO2W79j3uIpQj9vex1nWEU/GlobalPass?node-id=0-1&p=f&t=fRLAKnY8K8Ey3bEj-0) 
-
-# Requisitos Funcionais:
-
-Naiara: 
- O usuário deve ser capaz de se cadastrar na plataforma, editar ou excluir sua conta.
-
-O usuário poderá ter acesso às informações oferecidas em nossa plataforma, como pontos turísticos, postos de saúde, leis do estados de Florianópolis, acesso à educação escolar e informações básicas de como obter passes para os ônibus.
-
-Kallany:
-O usuário deve ser capaz de cadastrar uma ou mais postagem.
-
-O usuário poderá visualizar o google maps com endereços oferecidos pela nossa plataforma.
+TELA DE BOAS-VINDAS
 
 
-Laura:
-O usuário deve ser capaz de comenta em uma ou mais postagens.
+
+TELA DE CADASTRO
+
+![alt text](image.png)
+
+TELA DE EDUCAÇÃO
+
+![alt text](image-1.png)
+
+# 🖌️Figma
+
+Acesse o protótipo completo no Figma:
+
+👉[GlobalPass no Figma](https://www.figma.com/design/FO2W79j3uIpQj9vex1nWEU/GlobalPass?node-id=0-1&p=f&t=fRLAKnY8K8Ey3bEj-0) 
+
+# ✅Requisitos Funcionais:
+NAIARA:
+
+- O usuário deve ser capaz de se cadastrar na plataforma, editar e excluir sua conta.
+
+O usuário poderá acessar informações como:
+
+- Pontos turísticos
+
+- Postos de saúde
+
+- Leis estaduais de Florianópolis
+
+- Acesso à educação escolar
+
+- Instruções para obtenção de passes de transporte público
+
+KAYLLANY:
+
+- O usuário deve ser capaz de criar uma ou mais postagens.
+
+- O usuário poderá visualizar endereços no Google Maps indicados pela plataforma.
+
+LAURA:
+
+- O usuário deve ser capaz de comentar em uma ou mais postagens.
+
+
 
 
 

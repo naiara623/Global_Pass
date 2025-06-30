@@ -31,7 +31,7 @@ function CadastroEscuro() {
     if (!nacionalidade.trim()) novosErros.nacionalidade = "Campo obrigatório";
     if (senha.length < 6) novosErros.senha = "Mínimo 6 caracteres";
     if (senha !== confirmaSenha) novosErros.confirmaSenha = "Senhas não conferem";
-    if (!aceitouTermos) novosErros.termos = "Você deve aceitar os termos de uso";
+    if (!aceitouTermos) novosErros.termos = "Os termos de uso são obrigatorios";
 
     if (Object.keys(novosErros).length > 0) {
       setMensagemErro(novosErros);
@@ -224,7 +224,15 @@ function CadastroEscuro() {
                   <span>Li e concordo com os termos de uso</span>
                 </label>
               </div>
-              {renderErro('termos', { marginTop: '80px', border: '1px solid' })}
+              <div style={{ marginTop: '8px' }}>
+  {renderErro('termos', {
+    color: 'red',
+    fontSize: '14px',
+    // border: '1px solid red',
+    padding: '4px',
+    borderRadius: '4px',
+  })}
+</div>
             </div>
 
             <div className="DivDoOutroLado-Cadastro">

@@ -310,10 +310,12 @@ select.vistoIn-Cadastro:valid {
 
 .checkbox-wrapper-46{
   /* border: 2px solid red; */
-  width: 94%;
+  height: 20%;
+  width: 77%;
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 .checkbox-wrapper-46 input[type="checkbox"] {
@@ -437,10 +439,11 @@ select.vistoIn-Cadastro:valid {
     align-items: center;
     /* align-items: flex-start; */
     gap: 4px;
+    flex-direction: column;
   }
   
   .erro-msg {
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     color: red;
     font-size: 0.85rem;
     margin-top: -5%;
@@ -471,12 +474,12 @@ select.vistoIn-Cadastro:valid {
   }
 
   /* Adicione ao seu CadastroEscuro.css */
-.input-erro {
-  border: 1px solid #ff4444 !important;
-}
+/* .input-erro {
+  /* border: 1px solid #ff4444 !important; */
+
 
 .mensagem-erro {
-  color: #ff4444;
+  color: #000000;
   margin-top: 5px;
   font-size: 0.8rem;
 }

@@ -1,26 +1,17 @@
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./Comentarios.css";
 
-const comentariosFixos = [
-  { usuario: "Usuario1", texto: "Isso é muito interessante!", tempo: "5 min" },
-  { usuario: "Usuario2", texto: "Adorei essa funcionalidade!", tempo: "15 min" },
-  { usuario: "Usuario3", texto: "Alguém mais notou isso?", tempo: "30 min" },
-  { usuario: "Usuario5", texto: "Isso me ajudou bastante", tempo: "45 min" }
-];
-
 const Comentarios = ({ comentariosExtras = [], onResponder }) => {
-  const todosComentarios = [...comentariosExtras, ...comentariosFixos];
   const [index, setIndex] = useState(0);
   const [respostas, setRespostas] = useState({});
 
   const proximoComentario = () => {
-    setIndex((prevIndex) => (prevIndex + 1) % todosComentarios.length);
+    setIndex((prevIndex) => (prevIndex + 1) % comentariosExtras.length);
   };
 
   const comentarioAnterior = () => {
-    setIndex((prevIndex) => (prevIndex - 1 + todosComentarios.length) % todosComentarios.length);
+    setIndex((prevIndex) => (prevIndex - 1 + comentariosExtras.length) % comentariosExtras.length);
   };
 
   const handleResponder = (usuario) => {
@@ -42,7 +33,31 @@ const Comentarios = ({ comentariosExtras = [], onResponder }) => {
     }));
   };
 
-  useEffect(() => {
+useEffect(() => {
+  async function fetchComentarios() {
+    try {
+      const res = await fetch("http://localhost:3001/api/comentarios", {
+        credentials: "include"
+      });
+      if (!res.ok) throw new Error("Erro ao carregar comentários");
+      const data = await res.json();
+
+      const formatados = data.map(item => ({
+        usuario: item.user_name || "Usuário",
+        texto: item.comentario,
+        tempo: "Agora"
+      }));
+
+      setComentarios(formatados);
+    } catch (error) {
+      console.error("Erro ao carregar comentários:", error);
+    }
+  }
+
+  fetchComentarios();
+}, []);
+
+   useEffect(() => {
     const container = document.querySelector(".comentarios-container");
     const handleScroll = (event) => {
       if (event.deltaY > 0) proximoComentario();
@@ -55,16 +70,18 @@ const Comentarios = ({ comentariosExtras = [], onResponder }) => {
         container.removeEventListener("wheel", handleScroll);
       };
     }
-  }, [todosComentarios.length]);
+  }, [comentariosExtras.length]);
+
+  if (comentariosExtras.length === 0) {
+    return <div className="comentarios-container">Nenhum comentário ainda.</div>;
+  }
 
   return (
     <div className="comentarios-container">
-      {/* Camadas da pilha de comentários */}
       <div className="comentario-stack"></div>
       <div className="comentario-stack"></div>
       <div className="comentario-stack"></div>
 
-      {/* Comentário principal animado */}
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
@@ -78,23 +95,23 @@ const Comentarios = ({ comentariosExtras = [], onResponder }) => {
             <div className="flex items-center">
               <div className="comentario-avatar" />
               <div className="comentario-arrumar">
-                <span className="font-bold">{todosComentarios[index].usuario}</span>
-                <span className="ml-2 comentario-texto">{todosComentarios[index].texto}</span>
+                <span className="font-bold">{comentariosExtras[index]?.usuario}</span>
+                <span className="ml-2 comentario-texto">{comentariosExtras[index]?.texto}</span>
               </div>
             </div>
-            
+
             <div className="comentario-footer">
-              {todosComentarios[index].tempo} • 
-              <span 
-                onClick={() => handleResponder(todosComentarios[index].usuario)} 
-                style={{cursor: 'pointer'}}
+ {comentariosExtras[index]?.tempo} •{" "}
+                 <span
+                onClick={() => handleResponder(comentariosExtras[index]?.usuario)}
+                style={{ cursor: "pointer" }}
               >
                 Responder
               </span>
             </div>
 
-            {/* Exibir respostas */}
-            {respostas[todosComentarios[index].usuario]?.map((resposta, i) => (
+            {/* Respostas */}
+            {respostas[comentariosExtras[index]?.usuario]?.map((resposta, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, x: 20 }}

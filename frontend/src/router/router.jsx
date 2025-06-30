@@ -25,8 +25,8 @@ const router = createBrowserRouter([
     {path: "/navbar", element: <Navbar/>},
     {path: "/transporte", element: <Transporte/>},
     {path:"/postagem", element: <GlobalPost/>},
-    {path:"/telapostagem", element: <TelaDePostagem/>},
-    {path:"/perfilpostagem", element: <PerfilDePostagem/>}
+    {path:"/realizarpostagem", element: <TelaDePostagem/>},
+
    
 
    

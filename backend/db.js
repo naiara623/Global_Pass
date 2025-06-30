@@ -73,6 +73,8 @@ async function selectUser(email, senha) {
     const result = await client.query(sql, [email, senha]);
     if (result.rows.length > 0) {
       const { senha, ...userWithoutPassword } = result.rows[0];
+      console.log("Usuário encontrado=====>>>>>>> ", userWithoutPassword);
+      
       return userWithoutPassword;
     }
     return null;
@@ -101,69 +103,7 @@ async function getUserProfileByEmail(email) {
   }
 }
 
-// Atualiza os dados do usuário
-async function updateUser(email, newData) {
-  const sql = `
-    UPDATE usuarios 
-    SET 
-      nome = COALESCE($1, nome),
-      telefone = COALESCE($2, telefone),
-      nacionalidade = COALESCE($3, nacionalidade),
-      idioma = COALESCE($4, idioma)
-    WHERE email = $5
-    RETURNING *
-  `;
-  const values = [
-    newData.nome,
-    newData.telefone,
-    newData.nacionalidade,
-    newData.idioma,
-    email
-  ];
-
-  const client = await pool.connect();
-  try {
-    const result = await client.query(sql, values);
-    if (result.rows.length === 0) {
-      throw new Error("Usuário não encontrado");
-    }
-    return result.rows[0];
-  } finally {
-    client.release();
-  }
-}
-
-// Remove um usuário do banco
-async function deleteUser(email) {
-  const sql = "DELETE FROM usuarios WHERE email = $1 RETURNING *";
-  const client = await pool.connect();
-
-  try {
-    const result = await client.query(sql, [email]);
-    if (result.rows.length === 0) {
-      throw new Error("Usuário não encontrado");
-    }
-    return result.rows[0];
-  } finally {
-    client.release();
-  }
-}
-
-async function getUserByEmail(email) {
-  console.log("Buscando usuário por email=========>>>>>>>> :", email);
-
-
-  const result = await pool.query(
-    'SELECT id, nome, email, telefone, nacionalidade, idioma, profile_image as "profileImage" FROM usuarios WHERE email = $1',
-    [email]
-  );
-
-  console.log("Buscando usuário por email=========>>>>>>>> :", result.rows);
-
-  return result.rows[0] || null;
-}
-
-async function updateUser(email, newData) {
+async function updateUser(email, dados) {
   const result = await pool.query(
     `UPDATE usuarios 
      SET 
@@ -172,27 +112,124 @@ async function updateUser(email, newData) {
        nacionalidade = COALESCE($3, nacionalidade),
        idioma = COALESCE($4, idioma)
      WHERE email = $5
-     RETURNING id, nome, email, telefone, nacionalidade, idioma, profile_image as "profileImage"`,
-    [
-      newData.nome,
-      newData.telefone,
-      newData.nacionalidade,
-      newData.idioma,
-      email
-    ]
+     RETURNING id_usuarios as id, nome, email, telefone, nacionalidade, idioma, profile_image as "profileImage"`,
+    [dados.nome, dados.telefone, dados.nacionalidade, dados.idioma, email]
   );
   return result.rows[0];
 }
 
 async function deleteUser(email) {
-  await pool.query('DELETE FROM usuarios WHERE email = $1', [email]);
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+
+    // 1. Pega o ID do usuário
+    const userResult = await client.query('SELECT id_usuarios FROM usuarios WHERE email = $1', [email]);
+    if (userResult.rows.length === 0) {
+      throw new Error("Usuário não encontrado");
+    }
+    const userId = userResult.rows[0].id_usuarios;
+
+    // 2. Deleta os posts desse usuário
+    await client.query('DELETE FROM posts WHERE id_usuarios = $1', [userId]);
+
+    // 3. Deleta o usuário
+    const deleteUserResult = await client.query('DELETE FROM usuarios WHERE email = $1 RETURNING *', [email]);
+
+    await client.query('COMMIT');
+    return deleteUserResult.rows[0];
+  } catch (err) {
+    await client.query('ROLLBACK');
+    throw err;
+  } finally {
+    client.release();
+  }
 }
 
+
+async function getUserByEmail(email) {
+  const client = await pool.connect();
+  try {
+    const result = await client.query(
+      'SELECT id_usuarios, nome, email, telefone, nacionalidade, idioma, profile_image FROM usuarios WHERE email = $1',
+      [email]
+    );
+    
+    if (result.rows.length > 0) {
+      return result.rows[0];
+    }
+    return null;
+  } finally {
+    client.release();
+  }
+}
+
+// async function getUserByEmail(email) {
+//   const sql = "SELECT * FROM usuarios WHERE email = $1 AND senha = $2";
+//   const client = await pool.connect();
+
+//   try {
+//     const result = await client.query(sql, [email]);
+//     console.log("result ---------------->>>>>>>>>> ", result);
+    
+//     if (result.rows.length > 0) {
+//       const resultado = result.rows[0];
+//       console.log("Usuário encontrado=====>>>>>>> ", resultado);
+      
+//       return resultado;
+//     }
+//     return null;
+//   } finally {
+//     client.release();
+//   }
+// }
+
+async function inserirComentario(id_usuarios, comentario) {
+  const client = await pool.connect();
+  try {
+    const query = `
+      INSERT INTO comentarios (comentario, id_usuarios)
+      VALUES ($1, $2)
+      RETURNING *;
+    `;
+    const values = [comentario, id_usuarios];
+    const result = await client.query(query, values);
+    return result.rows[0];
+  } finally {
+    client.release();
+  }
+}
+
+async function listarComentarios() {
+  const client = await pool.connect();
+  const sql = `
+    SELECT 
+      c.idcomentarios AS id,
+      u.nome AS user_name,
+      c.comentario
+    FROM comentarios c
+    JOIN usuarios u ON c.id_usuarios = u.id_usuarios
+    ORDER BY c.idcomentarios DESC
+  `;
+  try {
+    const result = await client.query(sql);
+    return result.rows;
+  } finally {
+    client.release();
+  }
+}
+
+
+
+
 module.exports = {
+   pool, // 👈 adicione isso
   insertUser,
   selectUser,
   getUserByEmail,
   getUserProfileByEmail,
   updateUser,
-  deleteUser
+  deleteUser,
+    inserirComentario,
+  listarComentarios
 };

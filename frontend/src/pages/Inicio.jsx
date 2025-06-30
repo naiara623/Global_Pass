@@ -54,32 +54,61 @@ function Inicio() {
     setNovoComentario(`@${usuario} `);
   };
 
-  const adicionarComentario = () => {
-    if (novoComentario.trim()) {
-      if (respondendoPara) {
-        // Lógica para adicionar resposta (pode precisar ser ajustada)
-        const novoComentarioObj = {
-          usuario: "Você",
-          texto: novoComentario,
-          tempo: "Agora",
-          respondendoA: respondendoPara
-        };
-        setComentariosExtras([...comentariosExtras, novoComentarioObj]);
-      } else {
-        // Lógica para novo comentário principal
-        const novoComentarioObj = {
-          usuario: "Você",
-          texto: novoComentario,
-          tempo: "Agora"
-        };
-        setComentariosExtras([...comentariosExtras, novoComentarioObj]);
+
+useEffect(() => {
+  fetch("http://localhost:3001/api/comentarios", {
+    credentials: "include"
+  })
+    .then(res => {
+      if (!res.ok) throw new Error("Erro ao carregar comentários");
+      return res.json();
+    })
+    .then(data => setComentariosExtras(data.map(c => ({
+      usuario: c.user_name || "Usuário",
+      texto: c.comentario,
+      tempo: "Agora"
+    }))))
+    .catch(err => console.error("Erro ao carregar comentários:", err));
+}, []);
+
+const adicionarComentario = async () => {
+  if (novoComentario.trim()) {
+    try {
+      const res = await fetch("http://localhost:3001/api/comentarios", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ comentario: novoComentario })
+      });
+
+      if (res.status === 401) {
+        alert("Você precisa estar logado para comentar.");
+        return;
       }
-      
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.erro || "Erro ao enviar comentário");
+      }
+
+      const data = await res.json();
+
+      const novo = {
+        usuario: data.user_name || "Você",  // Pode ser 'nome' no seu BD, veja depois
+        texto: data.comentario,
+        tempo: "Agora"
+      };
+
+      setComentariosExtras(prev => [novo, ...prev]);
       setNovoComentario("");
       setRespondendoPara(null);
-    }
-  };
 
+    } catch (err) {
+      console.error("Erro ao comentar:", err);
+      alert(err.message);
+    }
+  }
+};
 
  
 

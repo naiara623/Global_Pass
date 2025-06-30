@@ -15,6 +15,11 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
+.vouchorar{
+  background-color: #40526b00;
+  border: none;
+}
+
 .logo-globalpost {
   width: 15%;
   display: flex;
